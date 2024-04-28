@@ -1,0 +1,141 @@
+{
+  "seller": [
+    {
+      "id": "910c",
+      "name": "Snow man",
+      "email": "test@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": "ce0e",
+      "name": "Snow",
+      "email": "snow@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "8791",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthithu0001@gmail.com"
+    },
+    {
+      "id": "34d9",
+      "name": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "82c3",
+      "name": "peter",
+      "password": "pe123",
+      "email": "peter@gmail.com"
+    },
+    {
+      "id": "6660",
+      "name": "peo",
+      "password": "peo123",
+      "email": "peo@gmail.com"
+    },
+    {
+      "id": "ea68",
+      "name": "marry",
+      "password": "ma123",
+      "email": "ma@gmail.com"
+    },
+    {
+      "id": "cc1f",
+      "name": "Homeadmin",
+      "password": "ư21",
+      "email": "test3@gmail.com"
+    },
+    {
+      "id": "7d76",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthianhtuyet.dev@gmail.com"
+    },
+    {
+      "id": "a5d0",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthianhtuyet.dev@gmail.com"
+    },
+    {
+      "id": "118e",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthianhtuyet.dev@gmail.com"
+    },
+    {
+      "id": "37a0",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthianhtuyet.dev@gmail.com"
+    },
+    {
+      "id": "3eca",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthianhtuyet.dev@gmail.com"
+    },
+    {
+      "id": "83a8",
+      "name": "Anh Tuyet",
+      "password": "123",
+      "email": "nguyenthianhtuyet.dev@gmail.com"
+    },
+    {
+      "id": "b196",
+      "name": "Snow",
+      "email": "snow@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "c469",
+      "name": "Snow",
+      "email": "snow@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "f002",
+      "name": "Snow",
+      "email": "snow@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "8e3e",
+      "name": "Snow",
+      "email": "snow@gmail.com",
+      "password": "123"
+    }
+  ],
+  "products": [
+    {
+      "name": "Samsung m 40 a ",
+      "price": "5500",
+      "category": "android",
+      "color": "pink",
+      "description": "this is a product Samsung ",
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSOO1JDPUNwcPiqzHYhaL_zpJA0Ymlr6mD9sSgTPad_JYdrk-o",
+      "id": "089a"
+    },
+    {
+      "id": "2b58",
+      "name": "HP Laptop",
+      "price": "50000",
+      "category": "Laptop",
+      "color": "black",
+      "description": "Hp laptop for student and professionals",
+      "image": "https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India.jpg"
+    },
+    {
+      "id": "b700",
+      "name": "Truck",
+      "price": "Toy",
+      "category": "Toys",
+      "color": "Red",
+      "description": "A toy for 5 year old child",
+      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388"
+    }
+  ]
+}
