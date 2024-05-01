@@ -30,42 +30,6 @@
       "image": "https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India.jpg"
     },
     {
-      "id": "2",
-      "name": "Truck",
-      "price": "5600",
-      "category": "Toys",
-      "color": "Pink",
-      "description": "A toy for 5 year old child",
-      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388"
-    },
-    {
-      "id": "3",
-      "name": "Nike Shoes",
-      "price": "3000",
-      "category": "Shoes",
-      "color": "Black",
-      "description": "Best shoes for Running",
-      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/1eeaacc0-e07c-4024-a5f7-57f2fd23e8a2/air-max-270-g-golf-shoe-Z6vCfs.png"
-    },
-    {
-      "id": "4",
-      "name": "Levies Jeans",
-      "price": "5000",
-      "category": "Jeans",
-      "color": "blue",
-      "description": "Confirmable jeans for man ",
-      "image": "https://www.filmibeat.com/wimg/desktop/2012/12/13548612746596.jpg"
-    },
-    {
-      "id": "5",
-      "name": "Truck",
-      "price": "1000",
-      "category": "Toys",
-      "color": "Red",
-      "description": "A toy for 5 year old child",
-      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388"
-    },
-    {
       "id": "6",
       "name": "Noise Smart Watch",
       "price": "2000",
@@ -82,6 +46,51 @@
       "description": "this is a Samsung product",
       "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSOO1JDPUNwcPiqzHYhaL_zpJA0Ymlr6mD9sSgTPad_JYdrk-o",
       "id": "7"
+    },
+    {
+      "name": "Laptop Apple MacBook Air",
+      "price": "34990",
+      "category": "Laptop",
+      "color": "yellow",
+      "description": " 13 inch M2 16GB/512GB/10GPU (Z15Z0003L)",
+      "image": "https://tse4.mm.bing.net/th?id=OIP.Gugj6FOZ22QOi6iH2rTQSgHaE8&pid=Api&P=0&h=180",
+      "id": "ae2e"
+    },
+    {
+      "name": "Laptop HP Omen 16",
+      "price": "37290",
+      "category": "Laptop",
+      "color": "black",
+      "description": "HP Omen 16 laptop n0087AX R7 ",
+      "image": "https://www.omen.com/content/dam/sites/omen/worldwide/laptops/hero-banner-desktop-i7-3-new-image.png",
+      "id": "f61d"
+    },
+    {
+      "name": "Calvin Klein - 25200148",
+      "price": "8000",
+      "category": "Watch",
+      "color": "white",
+      "description": "- Calvin Klein (CK) for male",
+      "image": "https://www.watchstore.vn/images/products/others/2024/large/252001481664290162-1712667459.webp",
+      "id": "6cfc"
+    },
+    {
+      "name": "Calvin Klein - K4E2N616",
+      "price": "7500",
+      "category": "Watch",
+      "color": "white-gold",
+      "description": "- Calvin Klein (CK) for female",
+      "image": "https://www.watchstore.vn/images/products/others/2024/large/k4e2n616-2-1664268652455-1712576257.webp",
+      "id": "1c5f"
+    },
+    {
+      "id": "3c38",
+      "name": "iPhone 15 Pro Max 256GB",
+      "price": "30000",
+      "category": "mobile",
+      "color": "blue titan",
+      "description": "100% new device, genuine Apple Vietnam.\nCellphoneS is currently an authorized retailer of genuine iPhone VN/A of Apple Vietnam",
+      "image": "https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-pro-max_3.png"
     }
   ],
   "users": [
@@ -122,6 +131,18 @@
       "productId": 5,
       "userId": 3,
       "id": "4"
+    },
+    {
+      "id": "3de1",
+      "name": "Samsung m 40 a ",
+      "price": "550",
+      "category": "mobile",
+      "color": "white",
+      "description": "this is a Samsung product",
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSOO1JDPUNwcPiqzHYhaL_zpJA0Ymlr6mD9sSgTPad_JYdrk-o",
+      "quantity": 1,
+      "productId": "7",
+      "userId": "9ee6"
     }
   ],
   "orders": [
