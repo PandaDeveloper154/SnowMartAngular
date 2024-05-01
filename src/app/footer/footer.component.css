@@ -1,7 +1,8 @@
-ul{
+ul {
     margin: 0;
     padding: 0;
 }
+
 .footer {
     padding: 10px;
     text-align: center;
@@ -11,12 +12,14 @@ ul{
     left: 0;
     background-color: #fff;
 }
-.footer ul{
+
+.footer ul {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
 }
-.footer ul li a{
-    color: blueviolet;
+
+.footer ul li a {
+    color: rgb(43, 92, 226);
     text-decoration: none;
 }
