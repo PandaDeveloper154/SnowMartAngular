@@ -8,15 +8,21 @@ import { product } from '../data-type';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit{
-  searchResult: undefined|product[]
-  constructor(private activedRoute: ActivatedRoute, private product: ProductService){}
-  ngOnInit(): void {
-    let query = this.activedRoute.snapshot.paramMap.get('query')
-    console.warn(query)
-    query && this.product.searchProduct(query).subscribe((result)=>{
-      this.searchResult=result
-    })
-  }
+export class SearchComponent implements OnInit {
+  searchResult: product[] | undefined;
 
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) { }
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const query = params['q'];
+      console.warn('Query parameter:', query);
+
+      if (query) {
+        this.productService.searchProduct(query).subscribe((result: product[]) => {
+          this.searchResult = result;
+        });
+      }
+    });
+  }
 }

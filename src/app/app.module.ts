@@ -15,6 +15,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from './search/search.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { FooterComponent } from './footer/footer.component';
+import { UserAuthComponent } from './user-auth/user-auth.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +30,13 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     SellerHomeComponent,
     SellerAddProductComponent,
     SellerUpdateComponent,
+    ProductDetailsComponent,
+    FooterComponent,
     SearchComponent,
-    ProductDetailsComponent
+    UserAuthComponent,
+    CartPageComponent,
+    CheckoutComponent,
+    MyOrdersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,117 +1,27 @@
 {
   "seller": [
     {
-      "id": "910c",
+      "id": "1",
       "name": "Snow man",
       "email": "test@gmail.com",
       "password": "12345678"
     },
     {
-      "id": "ce0e",
-      "name": "Snow",
-      "email": "snow@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "8791",
+      "id": "2",
       "name": "Anh Tuyet",
       "password": "123",
       "email": "nguyenthithu0001@gmail.com"
     },
     {
-      "id": "34d9",
-      "name": "",
-      "password": "",
-      "email": ""
-    },
-    {
-      "id": "82c3",
-      "name": "peter",
-      "password": "pe123",
-      "email": "peter@gmail.com"
-    },
-    {
-      "id": "6660",
-      "name": "peo",
-      "password": "peo123",
-      "email": "peo@gmail.com"
-    },
-    {
-      "id": "ea68",
+      "id": "3",
       "name": "marry",
       "password": "ma123",
       "email": "ma@gmail.com"
-    },
-    {
-      "id": "cc1f",
-      "name": "Homeadmin",
-      "password": "ư21",
-      "email": "test3@gmail.com"
-    },
-    {
-      "id": "7d76",
-      "name": "Anh Tuyet",
-      "password": "123",
-      "email": "nguyenthianhtuyet.dev@gmail.com"
-    },
-    {
-      "id": "a5d0",
-      "name": "Anh Tuyet",
-      "password": "123",
-      "email": "nguyenthianhtuyet.dev@gmail.com"
-    },
-    {
-      "id": "118e",
-      "name": "Anh Tuyet",
-      "password": "123",
-      "email": "nguyenthianhtuyet.dev@gmail.com"
-    },
-    {
-      "id": "37a0",
-      "name": "Anh Tuyet",
-      "password": "123",
-      "email": "nguyenthianhtuyet.dev@gmail.com"
-    },
-    {
-      "id": "3eca",
-      "name": "Anh Tuyet",
-      "password": "123",
-      "email": "nguyenthianhtuyet.dev@gmail.com"
-    },
-    {
-      "id": "83a8",
-      "name": "Anh Tuyet",
-      "password": "123",
-      "email": "nguyenthianhtuyet.dev@gmail.com"
-    },
-    {
-      "id": "b196",
-      "name": "Snow",
-      "email": "snow@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "c469",
-      "name": "Snow",
-      "email": "snow@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "f002",
-      "name": "Snow",
-      "email": "snow@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "8e3e",
-      "name": "Snow",
-      "email": "snow@gmail.com",
-      "password": "123"
     }
   ],
   "products": [
     {
-      "id": "2b58",
+      "id": "1",
       "name": "HP Laptop",
       "price": "50000",
       "category": "Laptop",
@@ -120,52 +30,43 @@
       "image": "https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India.jpg"
     },
     {
+      "id": "2",
       "name": "Truck",
       "price": "Toy",
       "category": "Toys",
       "color": "Pink",
       "description": "A toy for 5 year old child",
-      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388",
-      "id": "b700"
+      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388"
     },
     {
+      "id": "3",
       "name": "Nike Shoes",
       "price": "3000",
       "category": "Shoes",
       "color": "Black",
       "description": "Best shoes for Running",
-      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/1eeaacc0-e07c-4024-a5f7-57f2fd23e8a2/air-max-270-g-golf-shoe-Z6vCfs.png",
-      "id": "4"
+      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/1eeaacc0-e07c-4024-a5f7-57f2fd23e8a2/air-max-270-g-golf-shoe-Z6vCfs.png"
     },
     {
+      "id": "4",
       "name": "Levies Jeans",
       "price": "5000",
       "category": "Jeans",
       "color": "blue",
       "description": "Confirmable jeans for man ",
-      "image": "https://www.filmibeat.com/wimg/desktop/2012/12/13548612746596.jpg",
-      "id": "5"
+      "image": "https://www.filmibeat.com/wimg/desktop/2012/12/13548612746596.jpg"
     },
     {
+      "id": "5",
       "name": "Truck",
       "price": "Toy",
       "category": "Toys",
       "color": "Red",
       "description": "A toy for 5 year old child",
-      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388",
-      "id": "6"
+      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388"
     },
     {
-      "name": "Noise Smart Watch",
-      "price": "2000",
-      "category": "Watch",
-      "color": "Black",
-      "description": "Noise smart watch for man and women both",
-      "image": "https://www.reliancedigital.in/medias/Noise-Colorfit-Pro-2-Smart-Watch-491900986-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3w1MDc0NXxpbWFnZS9qcGVnfGltYWdlcy9oYzkvaDdjLzk1OTE4MjA3NDY3ODIuanBnfDA3MjZlMzkzOTExYzMyNzk5Y2YzOTk0MWFkMjc5YjE5OTlkMDE4NzYzYTg1YzQ2YmNjZjMxYzc5ZDJiYjBlNDg",
-      "id": "7"
-    },
-    {
-      "id": "047f",
+      "id": "6",
       "name": "Noise Smart Watch",
       "price": "2000",
       "category": "Watch",
@@ -173,5 +74,58 @@
       "description": "Noise smart watch for man and women both",
       "image": "https://www.reliancedigital.in/medias/Noise-Colorfit-Pro-2-Smart-Watch-491900986-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3w1MDc0NXxpbWFnZS9qcGVnfGltYWdlcy9oYzkvaDdjLzk1OTE4MjA3NDY3ODIuanBnfDA3MjZlMzkzOTExYzMyNzk5Y2YzOTk0MWFkMjc5YjE5OTlkMDE4NzYzYTg1YzQ2YmNjZjMxYzc5ZDJiYjBlNDg"
     }
-  ]
+  ],
+  "users": [
+    {
+      "id": "9ee6",
+      "name": "Anh",
+      "email": "ttuyet1504@gmail.com",
+      "password": "anh123"
+    },
+    {
+      "id": "6257",
+      "name": "Anh Tuyet",
+      "email": "ma@gmail.com",
+      "password": "vfdv"
+    }
+  ],
+  "cart": [
+    {
+      "id": "e369",
+      "name": "HP Laptop",
+      "price": "50000",
+      "category": "Laptop",
+      "color": "black",
+      "description": "Hp laptop for student and professionals",
+      "image": "https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India.jpg",
+      "quantity": 1,
+      "productId": "1",
+      "userId": "9ee6"
+    },
+    {
+      "id": "b8b0",
+      "name": "Truck",
+      "price": "Toy",
+      "category": "Toys",
+      "color": "Pink",
+      "description": "A toy for 5 year old child",
+      "image": "https://cdn.shopify.com/s/files/1/0011/8367/8476/products/Truck2_1400x.png?v=1662789388",
+      "quantity": 1,
+      "productId": "2",
+      "userId": "9ee6"
+    },
+    {
+      "id": "7f04",
+      "name": "Levies Jeans",
+      "price": "5000",
+      "category": "Jeans",
+      "color": "blue",
+      "description": "Confirmable jeans for man ",
+      "image": "https://www.filmibeat.com/wimg/desktop/2012/12/13548612746596.jpg",
+      "quantity": 1,
+      "productId": "4",
+      "userId": "9ee6"
+    }
+  ],
+  "orders": []
 }
