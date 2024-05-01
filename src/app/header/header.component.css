@@ -4,7 +4,7 @@
 }
 
 .nav h1 {
-    color: blueviolet;
+    color: rgb(43, 92, 226);
     margin: 0;
     font-size: 40px;
 }
@@ -15,19 +15,20 @@
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .nav .nav-search input {
     flex: 1;
-    color: blueviolet;
-    border: 1px solid blueviolet;
+    color: rgb(43, 92, 226);
+    border: 1px solid rgb(43, 92, 226);
     height: 39px;
     border-right: none;
 }
 
 .nav .nav-search button {
-    color: blueviolet;
-    border: 1px solid blueviolet;
+    color: rgb(43, 92, 226);
+    border: 1px solid rgb(43, 92, 226);
     height: 39px;
 }
 
@@ -45,16 +46,16 @@
 
 .nav ul a {
     text-decoration: none;
-    color: blueviolet;
+    color: rgb(43, 92, 226);
     cursor: pointer;
 }
 
 h1 a {
-    color: blueviolet;
+    color: rgb(43, 92, 226);
     text-decoration: none;
 }
 
-.suggested-search {
+.suggested-result {
     position: absolute;
     top: 40px;
     z-index: 10;
@@ -64,12 +65,12 @@ h1 a {
     width: 300px;
 }
 
-.suggested-search li {
+.suggested-result li {
     padding: 5px;
     border: 1px solid #ddd;
 }
 
-.suggested-search li a {
+.suggested-result li a {
     cursor: pointer;
-    color: blueviolet;
+    color: rgb(43, 92, 226);
 }

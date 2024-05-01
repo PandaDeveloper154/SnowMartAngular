@@ -1,6 +1,6 @@
 table {
     text-align: left;
-    color: blueviolet;
+    color: rgb(43, 92, 226);
     border-collapse: collapse;
 }
 
@@ -11,7 +11,7 @@ img {
 
 table td,
 table th {
-    border: 1px solid blueviolet;
+    border: 1px solid rgb(43, 92, 226);
     padding: 10px;
     min-width: 160pxs;
 }
