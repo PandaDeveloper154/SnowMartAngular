@@ -131,18 +131,6 @@
       "productId": 5,
       "userId": 3,
       "id": "4"
-    },
-    {
-      "id": "3de1",
-      "name": "Samsung m 40 a ",
-      "price": "550",
-      "category": "mobile",
-      "color": "white",
-      "description": "this is a Samsung product",
-      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSOO1JDPUNwcPiqzHYhaL_zpJA0Ymlr6mD9sSgTPad_JYdrk-o",
-      "quantity": 1,
-      "productId": "7",
-      "userId": "9ee6"
     }
   ],
   "orders": [
