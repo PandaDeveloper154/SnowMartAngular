@@ -11,6 +11,7 @@ ul {
     right: 0;
     left: 0;
     background-color: #ffff;
+    border-top: solid 1px #c4c0c0;
 }
 
 .footer ul {
