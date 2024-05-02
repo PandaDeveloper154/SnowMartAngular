@@ -20,6 +20,7 @@ import { UserAuthComponent } from './user-auth/user-auth.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
