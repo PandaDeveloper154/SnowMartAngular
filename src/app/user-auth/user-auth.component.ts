@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { cart, login, product, signUp } from '../data-type';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
@@ -9,37 +10,62 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./user-auth.component.css'],
 })
 export class UserAuthComponent implements OnInit {
-  showLogin: boolean = true
+  showLogin: boolean = true;
   authError: string = "";
-  constructor(private user: UserService, private product: ProductService) { }
+  userLoginForm: FormGroup;
+  userSignUpForm: FormGroup;
+
+  constructor(
+    private user: UserService,
+    private product: ProductService,
+    private formBuilder: FormBuilder
+  ) {
+    this.userLoginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
+    });
+
+    this.userSignUpForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
+    });
+  }
 
   ngOnInit(): void {
     this.user.userAuthReload();
   }
 
-  signUp(data: signUp) {
-    this.user.userSignUp(data);
+  signUp(): void {
+    if (this.userSignUpForm.valid) {
+      const signUpData: signUp = this.userSignUpForm.value;
+      this.user.userSignUp(signUpData);
+    }
   }
-  login(data: login) {
-    this.user.userLogin(data)
-    this.user.invalidUserAuth.subscribe((result) => {
-      console.warn(result);
-      if (result) {
-        this.authError = "User not found"
-      } else {
-        this.localCartToRemoteCart();
-      }
 
-    })
+  login(): void {
+    if (this.userLoginForm.valid) {
+      const loginData: login = this.userLoginForm.value;
+      this.user.userLogin(loginData)
+      this.user.invalidUserAuth.subscribe((result) => {
+        if (result) {
+          this.authError = "User not found"
+        } else {
+          this.localCartToRemoteCart();
+        }
+      });
+    }
   }
-  openSignUp() {
-    this.showLogin = false
+
+  openSignUp(): void {
+    this.showLogin = false;
   }
-  openLogin() {
+
+  openLogin(): void {
     this.showLogin = true;
   }
 
-  localCartToRemoteCart() {
+  localCartToRemoteCart(): void {
     let data = localStorage.getItem('localCart');
     let user = localStorage.getItem('user');
     let userId = user && JSON.parse(user).id;
@@ -69,6 +95,5 @@ export class UserAuthComponent implements OnInit {
     setTimeout(() => {
       this.product.getCartList(userId)
     }, 2000);
-
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import necessary modules
 import { ProductService } from '../services/product.service';
 import { product } from '../data-type';
 
@@ -9,31 +10,46 @@ import { product } from '../data-type';
   styleUrls: ['./seller-update.component.css']
 })
 export class SellerUpdateComponent implements OnInit {
-  productData: undefined | product;
-  productMessage: undefined | string;
-  constructor(private router: ActivatedRoute, private product: ProductService) { }
+  productData: product | undefined;
+  productMessage: string | undefined;
+  updateForm: FormGroup; // Define FormGroup
+
+  constructor(
+    private router: ActivatedRoute,
+    private productService: ProductService,
+    private formBuilder: FormBuilder // Inject FormBuilder
+  ) {
+    this.updateForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      category: ['', Validators.required],
+      color: ['', Validators.required],
+      description: ['', Validators.required],
+      image: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     let productId = this.router.snapshot.paramMap.get('id');
-    console.warn(productId);
-    productId && this.product.getProduct(productId).subscribe((data) => {
-      console.warn(data);
-      this.productData = data;
-    })
-  }
-  submit(data: product) {
-    console.warn(data)
-    if (this.productData) {
-      data.id = this.productData.id;
+    if (productId) {
+      this.productService.getProduct(productId).subscribe((data) => {
+        this.productData = data;
+        this.updateForm.patchValue(data); // Set initial form values
+      });
     }
-    this.product.updateProduct(data).subscribe((result) => {
-      if (result) {
-        this.productMessage = "Product has updated";
-      }
-    });
-    setTimeout(() => {
-      this.productMessage = undefined
-    }, 3000)
   }
 
+  submit(): void {
+    if (this.productData) {
+      const updatedProduct: product = { ...this.productData, ...this.updateForm.value };
+      this.productService.updateProduct(updatedProduct).subscribe((result) => {
+        if (result) {
+          this.productMessage = "Product has been updated";
+          setTimeout(() => {
+            this.productMessage = undefined;
+          }, 3000);
+        }
+      });
+    }
+  }
 }

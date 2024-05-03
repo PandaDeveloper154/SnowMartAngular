@@ -1,16 +1,13 @@
 <div class="add-product">
     <h1>Add New Product</h1>
-    <p class="message-p">{{addProductMessage}}</p>
-    <form #addProduct="ngForm" (ngSubmit)="submit(addProduct.value)" class="common-form">
-        <input type="text" class="form-input" placeholder="Enter Product Name" name="name" ngModel />
-        <input type="text" class="form-input" placeholder="Enter Product Price" name="price" ngModel />
-        <input type="text" class="form-input" placeholder="Enter Product Category" name="category" ngModel />
-        <input type="text" class="form-input" placeholder="Enter Product Color" name="color" ngModel />
-        <textarea type="text" class="form-input" placeholder="Enter Product Description" name="description"
-            ngModel></textarea>
-
-        <input type="text" class="form-input" placeholder="Enter Product Image URL" name="image" ngModel />
-        <button class="form-button">Add Product</button>
-
+    <p class="message-p">{{ addProductMessage }}</p>
+    <form [formGroup]="addProductForm" (ngSubmit)="submit()" class="common-form">
+        <input type="text" class="form-input" placeholder="Enter Product Name" formControlName="name" />
+        <input type="text" class="form-input" placeholder="Enter Product Price" formControlName="price" />
+        <input type="text" class="form-input" placeholder="Enter Product Category" formControlName="category" />
+        <input type="text" class="form-input" placeholder="Enter Product Color" formControlName="color" />
+        <textarea type="text" class="form-input" placeholder="Enter Product Description" formControlName="description"></textarea>
+        <input type="text" class="form-input" placeholder="Enter Product Image URL" formControlName="image" />
+        <button class="form-button" [disabled]="addProductForm.invalid">Add Product</button>
     </form>
 </div>
