@@ -16,9 +16,9 @@
             <li><a routerLink="">Home</a></li>
             <li><a routerLink="user-auth">Login/Sign-up</a></li>
             <li><a href="#">Cart({{cartItems}})</a></li>
+
         </ul>
         <ul *ngSwitchCase="'user'">
-            <li><a routerLink="seller-auth">Seller</a></li>
             <li><a routerLink="">Home</a></li>
             <li><a>{{userName|titlecase}}</a></li>
             <li><a routerLink="my-orders">My Orders</a></li>
@@ -33,3 +33,5 @@
         </ul>
     </div>
 </nav>
+
+  

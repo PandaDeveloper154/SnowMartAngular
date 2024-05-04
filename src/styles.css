@@ -2,10 +2,10 @@ body {
     font-family: sans-serif;
 }
 
-.container {
+/* .container {
     margin-left: 5%;
     margin-right: 5%;
-}
+} */
 
 .common-form {
     display: flex;

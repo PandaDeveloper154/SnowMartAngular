@@ -10,7 +10,8 @@ ul {
     bottom: 0;
     right: 0;
     left: 0;
-    background-color: #fff;
+    background-color: #ffff;
+    border-top: solid 1px #c4c0c0;
 }
 
 .footer ul {
@@ -22,4 +23,7 @@ ul {
 .footer ul li a {
     color: rgb(43, 92, 226);
     text-decoration: none;
+}
+.footer-text {
+    color: rgb(43, 92, 226);
 }
