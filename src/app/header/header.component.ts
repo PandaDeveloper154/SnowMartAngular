@@ -11,7 +11,6 @@ import { product } from '../data-type';
 export class HeaderComponent implements OnInit {
   menuType: string = 'default';
   sellerName: string = '';
-  searchResult: undefined | product[]
   userName: string = "";
   cartItems = 0;
 
@@ -55,27 +54,10 @@ export class HeaderComponent implements OnInit {
     this.route.navigate(['/user-auth']);
     this.product.cartData.emit([]);
   }
-  searchProduct(query: KeyboardEvent) {
-    if (query) {
-      const element = query.target as HTMLInputElement;
-      this.product.searchProduct(element.value).subscribe((result) => {
-        if (result.length > 5) {
-          result.length = 5;
-        }
-        this.searchResult = result
-      })
-    }
-  }
-  hideSearch() {
-    this.searchResult = undefined
-  }
+  
   redirectToDetails(id: number) {
     this.route.navigate(['/details/' + id]);
 
-  }
-  submitSearch(val: string) {
-    console.warn(val)
-    this.route.navigate([`search/${val}`])
   }
 
 }
