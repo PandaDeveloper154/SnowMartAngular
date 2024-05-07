@@ -40,16 +40,16 @@ export class SellerUpdateComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.productData) {
-      const updatedProduct: product = { ...this.productData, ...this.updateForm.value };
-      this.productService.updateProduct(updatedProduct).subscribe((result) => {
-        if (result) {
-          this.productMessage = "Product has been updated";
-          setTimeout(() => {
-            this.productMessage = undefined;
-          }, 3000);
-        }
-      });
-    }
-  }
+    if (this.updateForm.valid) { // Kiểm tra nếu form hợp lệ
+      if (this.productData) {
+        const updatedProduct: product = { ...this.productData, ...this.updateForm.value };
+        this.productService.updateProduct(updatedProduct).subscribe((result) => {
+          if (result) {
+            this.productMessage = "Product has been updated";
+            setTimeout(() => {
+              this.productMessage = undefined;
+            }, 3000);
+          }
+        });
+      }}}
 }

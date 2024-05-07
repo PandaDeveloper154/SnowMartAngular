@@ -23,8 +23,8 @@
     {
       "id": "1",
       "name": "HP Laptop",
-      "price": "50000",
-      "category": "Laptop",
+      "price": "500",
+      "category": "laptop",
       "color": "black",
       "description": "Hp laptop for student and professionals",
       "image": "https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India.jpg"
