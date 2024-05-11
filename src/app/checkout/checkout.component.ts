@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import form-related modules
-import { Router } from '@angular/router';
-import { cart, order } from '../data-type';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
+import { cart, order } from '../data-type';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -14,34 +15,44 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number | undefined;
   cartData: cart[] | undefined;
   orderMsg: string | undefined;
-  checkoutForm!: FormGroup; // Define a FormGroup for the reactive form
+  checkoutForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder, // Inject FormBuilder for form creation
-    private product: ProductService,
-    private router: Router
+    private fb: FormBuilder,
+    private productService: ProductService
   ) { }
 
   ngOnInit(): void {
-    this.initForm(); // Initialize the form when component initializes
-    this.product.currentCart().subscribe((result) => {
-      let price = 0;
-      this.cartData = result;
-      result.forEach((item) => {
-        if (item.quantity) {
-          price = price + (+item.price * +item.quantity)
-        }
-      })
-      this.totalPrice = price + (price / 10) + 100 - (price / 10);
-    });
+    this.initForm();
+    this.loadCartData();
   }
 
   initForm(): void {
-    this.checkoutForm = this.fb.group({ // Create FormGroup and define form controls with validators
+    this.checkoutForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
       contact: ['', Validators.required]
     });
+  }
+
+  loadCartData(): void {
+    this.productService.currentCart()
+      .pipe(
+        catchError(error => {
+          console.error('Error loading cart data:', error);
+          return throwError('Error loading cart data. Please try again later.');
+        })
+      )
+      .subscribe((result) => {
+        let price = 0;
+        this.cartData = result;
+        result.forEach((item) => {
+          if (item.quantity) {
+            price = price + (+item.price * +item.quantity);
+          }
+        });
+        this.totalPrice = price + (price / 10) + 100 - (price / 10);
+      });
   }
 
   orderNow(): void {
@@ -49,27 +60,32 @@ export class CheckoutComponent implements OnInit {
     const userId = user && JSON.parse(user).id;
     if (this.totalPrice && this.checkoutForm.valid) {
       const orderData: order = {
-        ...this.checkoutForm.value, // Use form value for order data
+        ...this.checkoutForm.value,
         totalPrice: this.totalPrice,
         userId,
         id: undefined
       };
-
       this.cartData?.forEach((item) => {
         setTimeout(() => {
-          item.id && this.product.deleteCartItems(item.id);
+          item.id && this.productService.deleteCartItems(item.id);
         }, 700);
       });
 
-      this.product.orderNow(orderData).subscribe((result) => {
-        if (result) {
-          this.orderMsg = "Order has been placed";
-          setTimeout(() => {
-            this.orderMsg = undefined;
-            this.router.navigate(['/my-orders']);
-          }, 4000);
-        }
-      });
+      this.productService.orderNow(orderData)
+        .pipe(
+          catchError(error => {
+            console.error('Error placing order:', error);
+            return throwError('Error placing order. Please try again later.');
+          })
+        )
+        .subscribe((result) => {
+          if (result) {
+            this.orderMsg = "Order has been placed";
+            setTimeout(() => {
+              this.orderMsg = undefined;
+            }, 4000);
+          }
+        });
     }
   }
 }
