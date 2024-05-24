@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { cart, login, product, signUp } from '../data-type';
+import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
-import { UserService } from '../services/user.service';
+import { login, signUp, product, cart } from '../data-type';
 
 @Component({
   selector: 'app-user-auth',
@@ -16,8 +16,8 @@ export class UserAuthComponent implements OnInit {
   userSignUpForm: FormGroup;
 
   constructor(
-    private user: UserService,
-    private product: ProductService,
+    private authService: AuthService,
+    private productService: ProductService,
     private formBuilder: FormBuilder
   ) {
     this.userLoginForm = this.formBuilder.group({
@@ -33,26 +33,31 @@ export class UserAuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user.userAuthReload();
+    this.authService.authReload(false);
   }
 
   signUp(): void {
     if (this.userSignUpForm.valid) {
       const signUpData: signUp = this.userSignUpForm.value;
-      this.user.userSignUp(signUpData);
+      this.authService.signUp(signUpData, false).subscribe(response => {
+        console.log('Sign up successful:', response);
+      }, error => {
+        console.error('Sign up error:', error);
+        this.authError = "Error occurred during sign up.";
+      });
     }
   }
 
   login(): void {
     if (this.userLoginForm.valid) {
       const loginData: login = this.userLoginForm.value;
-      this.user.userLogin(loginData)
-      this.user.invalidUserAuth.subscribe((result) => {
-        if (result) {
-          this.authError = "User not found"
-        } else {
-          this.localCartToRemoteCart();
-        }
+      this.authError = "";
+      this.authService.login(loginData, false).subscribe(response => {
+        console.log('Login successful:', response);
+        this.localCartToRemoteCart();
+      }, error => {
+        console.error('Login error:', error);
+        this.authError = "User not found";
       });
     }
   }
@@ -66,21 +71,21 @@ export class UserAuthComponent implements OnInit {
   }
 
   localCartToRemoteCart(): void {
-    let data = localStorage.getItem('localCart');
-    let user = localStorage.getItem('user');
-    let userId = user && JSON.parse(user).id;
+    const data = localStorage.getItem('localCart');
+    const user = localStorage.getItem('user');
+    const userId = user && JSON.parse(user).id;
     if (data) {
-      let cartDataList: product[] = JSON.parse(data);
+      const cartDataList: product[] = JSON.parse(data);
 
       cartDataList.forEach((product: product, index) => {
-        let cartData: cart = {
+        const cartData: cart = {
           ...product,
           productId: product.id,
           userId
         }
         delete cartData.id;
         setTimeout(() => {
-          this.product.addToCart(cartData).subscribe((result) => {
+          this.productService.addToCart(cartData).subscribe((result) => {
             if (result) {
               console.warn("data is stored in DB");
             }
@@ -93,7 +98,7 @@ export class UserAuthComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this.product.getCartList(userId)
+      this.productService.getCartList(userId).subscribe();
     }, 2000);
   }
 }

@@ -1,108 +1,155 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map,tap } from 'rxjs/operators';
 import { cart, order, product } from '../data-type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  cartData = new EventEmitter<product[] | []>();
-  constructor(private http: HttpClient) { }
-  addProduct(data: product) {
-    return this.http.post('http://localhost:3000/products', data);
-  }
-  productList() {
-    return this.http.get<product[]>('http://localhost:3000/products');
+  cartData = new EventEmitter<any[]>();
+  private apiUrl = 'https://localhost:7040/api';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  constructor(private http: HttpClient) {}
+
+  // Handle HTTP operation errors
+  private handleError(error: any) {
+    console.error(error); // Log the error to the console
+    return throwError(error); // Rethrow the error to be caught by the caller
   }
 
-  deleteProduct(id: number) {
-    return this.http.delete(`http://localhost:3000/products/${id}`);
+  // Product methods
+
+  getAllProducts(): Observable<product[]> {
+    return this.http.get<product[]>(`${this.apiUrl}/Product`)
+      .pipe(
+        tap(_ => console.log('Fetched all products')),
+        catchError(this.handleError)
+      );
   }
 
-  getProduct(id: string) {
-    return this.http.get<product>(`http://localhost:3000/products/${id}`);
+  getProduct(id: number): Observable<product> {
+    const url = `${this.apiUrl}/Product/${id}`;
+    return this.http.get<product>(url)
+      .pipe(
+        tap(_ => console.log(`Fetched product with ID=${id}`)),
+        catchError(this.handleError)
+      );
   }
 
-  updateProduct(product: product) {
-    return this.http.put<product>(
-      `http://localhost:3000/products/${product.id}`,
-      product
-    );
-  }
-  popularProducts() {
-    return this.http.get<product[]>('http://localhost:3000/products?_limit=3');
-  }
-
-  trendyProducts() {
-    return this.http.get<product[]>('http://localhost:3000/products?_limit=8');
+  deleteProduct(id: number): Observable<any> {
+    const url = `${this.apiUrl}/Product/${id}`;
+    return this.http.delete(url, this.httpOptions)
+      .pipe(
+        tap(_ => console.log(`Deleted product with ID=${id}`)),
+        catchError(this.handleError)
+      );
   }
 
+  updateProduct(product: product): Observable<any> {
+    const url = `${this.apiUrl}/Product/${product.id}`;
+    return this.http.put(url, product, this.httpOptions)
+      .pipe(
+        tap(_ => console.log(`Updated product with ID=${product.id}`)),
+        catchError(this.handleError)
+      );
+  }
+
+  addProduct(product: product): Observable<product> {
+    return this.http.post<product>(`${this.apiUrl}/Product`, product, this.httpOptions)
+      .pipe(
+        tap((newProduct: product) => console.log(`Added product with ID=${newProduct.id}`)),
+        catchError(this.handleError)
+      );
+  }
+
+  // Cart methods
 
   localAddToCart(data: product) {
-    let cartData = [];
-    let localCart = localStorage.getItem('localCart');
-    if (!localCart) {
-      localStorage.setItem('localCart', JSON.stringify([data]));
-      this.cartData.emit([data]);
-    } else {
-      cartData = JSON.parse(localCart);
-      cartData.push(data);
-      localStorage.setItem('localCart', JSON.stringify(cartData));
-      this.cartData.emit(cartData);
-    }
+    let cartData = localStorage.getItem('localCart');
+    let items: product[] = cartData ? JSON.parse(cartData) : [];
+    items.push(data);
+    localStorage.setItem('localCart', JSON.stringify(items));
   }
 
   removeItemFromCart(productId: number) {
     let cartData = localStorage.getItem('localCart');
-    if (cartData) {
-      let items: product[] = JSON.parse(cartData);
-      items = items.filter((item: product) => productId !== item.id);
-      localStorage.setItem('localCart', JSON.stringify(items));
-      this.cartData.emit(items);
-    }
+    let items: product[] = cartData ? JSON.parse(cartData) : [];
+    items = items.filter(item => item.id !== productId);
+    localStorage.setItem('localCart', JSON.stringify(items));
   }
 
-  addToCart(cartData: cart) {
-    return this.http.post('http://localhost:3000/cart', cartData);
+  addToCart(cartData: cart): Observable<any> {
+    return this.http.post(`${this.apiUrl}/CartItem`, cartData, this.httpOptions)
+      .pipe(
+        tap(_ => console.log('Added to cart')),
+        catchError(this.handleError)
+      );
   }
-  getCartList(userId: number) {
-    return this.http
-      .get<product[]>('http://localhost:3000/cart?userId=' + userId, {
-        observe: 'response',
+
+  getCartList(userId: number): Observable<product[]> {
+    return this.http.get<product[]>(`${this.apiUrl}/CartItem?userId=${userId}`, { observe: 'response' })
+      .pipe(
+        map((response) => response.body as product[]), // Cast the response body to product[]
+        tap(_ => console.log('Fetched cart list')),
+        catchError(this.handleError)
+      );
+  }
+
+  currentCart(userId: number): Observable<cart[]> {
+    return this.http.get<cart[]>(`${this.apiUrl}/CartItem?userId=${userId}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching current cart:', error);
+        throw error; // Rethrow the error for the component to handle
       })
-      .subscribe((result) => {
-        if (result && result.body) {
-          this.cartData.emit(result.body);
-        }
-      });
-  }
-  removeToCart(cartId: number) {
-    return this.http.delete('http://localhost:3000/cart/' + cartId);
-  }
-  currentCart() {
-    let userStore = localStorage.getItem('user');
-    let userData = userStore && JSON.parse(userStore);
-    return this.http.get<cart[]>('http://localhost:3000/cart?userId=' + userData.id);
+    );
   }
 
-  orderNow(data: order) {
-    return this.http.post('http://localhost:3000/orders', data);
-  }
-  orderList() {
-    let userStore = localStorage.getItem('user');
-    let userData = userStore && JSON.parse(userStore);
-    return this.http.get<order[]>('http://localhost:3000/orders?userId=' + userData.id);
-  }
 
-  deleteCartItems(cartId: number) {
-    return this.http.delete('http://localhost:3000/cart/' + cartId).subscribe((result) => {
-      this.cartData.emit([]);
-    })
+  removeToCart(cartId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/CartItem/${cartId}`)
+      .pipe(
+        tap(_ => console.log(`Removed cart item with ID=${cartId}`)),
+        catchError(this.handleError)
+      );
   }
 
-  cancelOrder(orderId: number) {
-    return this.http.delete('http://localhost:3000/orders/' + orderId)
-
+  deleteCartItems(cartId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/CartItem/${cartId}`)
+      .pipe(
+        tap(_ => console.log(`Deleted cart item with ID=${cartId}`)),
+        catchError(this.handleError)
+      );
   }
 
+  // Order methods
+
+  orderNow(data: order): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Order`, data, this.httpOptions)
+      .pipe(
+        tap(_ => console.log('Placed order')),
+        catchError(this.handleError)
+      );
+  }
+
+  orderList(userId: number): Observable<order[]> {
+    return this.http.get<order[]>(`${this.apiUrl}/Order?userId=${userId}`)
+      .pipe(
+        tap(_ => console.log('Fetched order list')),
+        catchError(this.handleError)
+      );
+  }
+
+  cancelOrder(orderId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/Order/${orderId}`)
+      .pipe(
+        tap(_ => console.log(`Cancelled order with ID=${orderId}`)),
+        catchError(this.handleError)
+      );
+  }
 }

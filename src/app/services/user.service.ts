@@ -1,37 +1,51 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { login, signUp } from '../data-type';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  invalidUserAuth = new EventEmitter<boolean>(false)
+  private apiUrl = 'https://localhost:7040/api/Account';
+  invalidUserAuth = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient, private router: Router) { }
-  userSignUp(user: signUp) {
-    this.http.post('http://localhost:3000/users', user, { observe: 'response' })
-      .subscribe((result) => {
-        if (result) {
-          localStorage.setItem('user', JSON.stringify(result.body));
+
+  userSignUp(user: signUp): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, user, { observe: 'response' }).pipe(
+      map((response: any) => {
+        if (response) {
+          localStorage.setItem('user', JSON.stringify(response.body));
           this.router.navigate(['/']);
+          return response.body;
         }
-
+      }),
+      catchError(error => {
+        return throwError(error);
       })
-
+    );
   }
-  userLogin(data: login) {
-    this.http.get<signUp[]>(`http://localhost:3000/users?email=${data.email}&password=${data.password}`,
-      { observe: 'response' }
-    ).subscribe((result) => {
-      if (result && result.body?.length) {
-        localStorage.setItem('user', JSON.stringify(result.body[0]));
-        this.router.navigate(['/']);
-        this.invalidUserAuth.emit(false)
-      } else {
-        this.invalidUserAuth.emit(true)
-      }
-    })
+
+  userLogin(data: login): Observable<any> {
+    return this.http.get(`${this.apiUrl}/login?email=${data.email}&password=${data.password}`, { observe: 'response' }).pipe(
+      map((response: any) => {
+        if (response && response.body && response.body.length === 1) {
+          localStorage.setItem('user', JSON.stringify(response.body[0]));
+          this.router.navigate(['/']);
+          this.invalidUserAuth.next(false);
+          return response.body;
+        } else {
+          this.invalidUserAuth.next(true);
+          return false;
+        }
+      }),
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
 
   userAuthReload() {

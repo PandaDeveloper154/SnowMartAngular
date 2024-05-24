@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import necessary modules
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { product } from '../data-type';
 
@@ -12,12 +12,12 @@ import { product } from '../data-type';
 export class SellerUpdateComponent implements OnInit {
   productData: product | undefined;
   productMessage: string | undefined;
-  updateForm: FormGroup; // Define FormGroup
+  updateForm: FormGroup;
 
   constructor(
     private router: ActivatedRoute,
     private productService: ProductService,
-    private formBuilder: FormBuilder // Inject FormBuilder
+    private formBuilder: FormBuilder
   ) {
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -30,17 +30,18 @@ export class SellerUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let productId = this.router.snapshot.paramMap.get('id');
-    if (productId) {
+    let productIdString = this.router.snapshot.paramMap.get('id');
+    if (productIdString) {
+      let productId = parseInt(productIdString, 10); // Convert string to number
       this.productService.getProduct(productId).subscribe((data) => {
         this.productData = data;
-        this.updateForm.patchValue(data); // Set initial form values
+        this.updateForm.patchValue(data);
       });
     }
   }
 
   submit(): void {
-    if (this.updateForm.valid) { // Kiểm tra nếu form hợp lệ
+    if (this.updateForm.valid) {
       if (this.productData) {
         const updatedProduct: product = { ...this.productData, ...this.updateForm.value };
         this.productService.updateProduct(updatedProduct).subscribe((result) => {
@@ -51,5 +52,7 @@ export class SellerUpdateComponent implements OnInit {
             }, 3000);
           }
         });
-      }}}
+      }
+    }
+  }
 }

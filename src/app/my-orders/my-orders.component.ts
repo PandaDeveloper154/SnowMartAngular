@@ -9,23 +9,29 @@ import { ProductService } from '../services/product.service';
 })
 export class MyOrdersComponent implements OnInit {
 
-  orderData: order[] | undefined
+  orderData: order[] | undefined;
+  userId: number | undefined; // Assuming you have the userId available
+
   constructor(private product: ProductService) { }
 
   ngOnInit(): void {
-    this.getOrderList()
+    // Assuming you have the userId available before calling getOrderList
+    this.getOrderList(this.userId);
   }
+
   cancelOrder(orderId: number | undefined) {
     orderId && this.product.cancelOrder(orderId).subscribe((result) => {
       if (result) {
-        this.getOrderList();
+        this.getOrderList(this.userId); // Update order list after canceling order
       }
-    })
-  }
-  getOrderList() {
-    this.product.orderList().subscribe((result) => {
-      this.orderData = result;
-    })
+    });
   }
 
+  getOrderList(userId: number | undefined) {
+    if (userId) {
+      this.product.orderList(userId).subscribe((result) => {
+        this.orderData = result;
+      });
+    }
+  }
 }

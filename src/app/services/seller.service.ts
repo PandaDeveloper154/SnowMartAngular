@@ -1,46 +1,54 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { login, signUp } from '../data-type';
-import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SellerService {
+  private apiUrl = 'https://localhost:7040/api/Account';
   isSellerLoggedIn = new BehaviorSubject<boolean>(false);
-  isLoginError = new EventEmitter<boolean>(false)
 
-  constructor(private http: HttpClient, private router: Router) { }
-  userSignUp(data: signUp) {
-    this.http.post('http://localhost:3000/seller',
-      data,
-      { observe: 'response' }).subscribe((result) => {
-        console.warn(result)
-        if (result) {
-          localStorage.setItem('seller', JSON.stringify(result.body))
-          this.router.navigate(['seller-home'])
+  constructor(private http: HttpClient) { }
+
+  userSignUp(data: signUp): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, data, { observe: 'response' }).pipe(
+      map((response: any) => {
+        if (response) {
+          localStorage.setItem('seller', JSON.stringify(response.body));
+          this.isSellerLoggedIn.next(true);
+          return response.body;
         }
+      }),
+      catchError(error => {
+        return throwError(error);
       })
+    );
   }
   
   reloadSeller() {
-
     if (localStorage.getItem('seller')) {
-      this.router.navigate(['seller-home']);
+      // Assuming 'seller-home' is a valid route
+      window.location.href = '/seller-home'; // Redirect to seller-home
     }
   }
-  userLogin(data: login) {
-    this.http.get(`http://localhost:3000/seller?email=${data.email}&password=${data.password}`,
-      { observe: 'response' }).subscribe((result: any) => {
-        console.warn(result)
-        if (result && result.body && result.body.length === 1) {
-          this.isLoginError.emit(false)
-          localStorage.setItem('seller', JSON.stringify(result.body))
-          this.router.navigate(['seller-home'])
+
+  userLogin(data: login): Observable<any> {
+    return this.http.get(`${this.apiUrl}/login?email=${data.email}&password=${data.password}`, { observe: 'response' }).pipe(
+      map((response: any) => {
+        if (response && response.body && response.body.length === 1) {
+          localStorage.setItem('seller', JSON.stringify(response.body));
+          this.isSellerLoggedIn.next(true);
+          return response.body;
         } else {
-          console.warn("login failed");
-          this.isLoginError.emit(true)
+          return false; // Indicate login failed
         }
+      }),
+      catchError(error => {
+        return throwError(error);
       })
+    );
   }
 }
