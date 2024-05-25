@@ -14,6 +14,45 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   productQuantity = 1;
   removeCart = false;
   cartData: product | undefined;
+
+  constructor(private activeRoute: ActivatedRoute, private productService: ProductService) { }
+
+  ngOnInit(): void {
+    let productIdStr = this.activeRoute.snapshot.paramMap.get('productId');
+    let productIdNum = productIdStr ? +productIdStr : undefined;
+
+    if (productIdNum !== undefined) {
+      this.productService.getProduct(productIdNum).subscribe((result) => {
+        this.productData = result;
+        let cartData = localStorage.getItem('localCart');
+        if (cartData) {
+          let items = JSON.parse(cartData);
+          items = items.filter((item: product) => productIdNum === item.id);
+          if (items.length) {
+            this.removeCart = true;
+          } else {
+            this.removeCart = false;
+          }
+        }
+
+        let user = localStorage.getItem('user');
+        if (user) {
+          let userId = JSON.parse(user).id;
+          this.productService.getCartList(userId);
+
+          this.productService.cartData.subscribe((result) => {
+            let item = result.find((item: product) => productIdNum === item.productId)?.[0];
+            if (item) {
+              this.cartData = item;
+              this.removeCart = true;
+            }
+          });
+        }
+      });
+    }
+  }
+
+  handleQuantity(val: string) {
   private routeSubscription: Subscription | undefined;
   private cartSubscription: Subscription | undefined;
 
@@ -88,12 +127,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeToCart(productId: number) {
   removeToCart(productId: number): void {
     if (!localStorage.getItem('user')) {
       this.productService.removeItemFromCart(productId);
     } else {
       this.cartData && this.productService.removeToCart(this.cartData.id)
         .subscribe((result) => {
+          let user = localStorage.getItem('user');
+          let userId = user && JSON.parse(user).id;
           const userId = JSON.parse(localStorage.getItem('user') || '').id;
           this.productService.getCartList(userId);
         });

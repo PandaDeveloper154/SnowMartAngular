@@ -12,6 +12,14 @@ export class MyOrdersComponent implements OnDestroy {
   orderData: order[] | undefined;
   private subscription: Subscription | undefined;
 
+  orderData: order[] | undefined;
+  userId: number | undefined; // Assuming you have the userId available
+
+  constructor(private product: ProductService) { }
+
+  ngOnInit(): void {
+    // Assuming you have the userId available before calling getOrderList
+    this.getOrderList(this.userId);
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
@@ -27,6 +35,18 @@ export class MyOrdersComponent implements OnDestroy {
   cancelOrder(orderId: number | undefined) {
     orderId && this.productService.cancelOrder(orderId).subscribe((result) => {
       if (result) {
+        this.getOrderList(this.userId); // Update order list after canceling order
+      }
+    });
+  }
+
+  getOrderList(userId: number | undefined) {
+    if (userId) {
+      this.product.orderList(userId).subscribe((result) => {
+        this.orderData = result;
+      });
+    }
+  }
         this.orderList();
       }
     });

@@ -1,9 +1,8 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SellerService } from '../services/seller.service';
 import { Router } from '@angular/router';
 import { signUp } from '../data-type';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-seller-auth',
@@ -16,7 +15,7 @@ export class SellerAuthComponent implements OnInit {
   showLogin = false;
   authError: string = "";
 
-  constructor(private seller: SellerService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.sellerSignUpForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -30,26 +29,33 @@ export class SellerAuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.seller.reloadSeller();
+    this.authService.authReload(false); // Assuming it's for user authentication
   }
+
   signUp(): void {
     if (this.sellerSignUpForm.valid) {
       const signUpData: signUp = this.sellerSignUpForm.value;
-      console.log('Sign Up Data:', signUpData); // Log form values
-      this.seller.userSignUp(signUpData);
+      console.log('Sign Up Data:', signUpData);
+      this.authService.signUp(signUpData, false).subscribe(response => {
+        console.log('Sign up successful:', response);
+        this.router.navigate(['/user-home']); // Redirect to user home after successful sign up
+      }, error => {
+        console.error('Sign up error:', error);
+        this.authError = "Error occurred during sign up.";
+      });
     }
   }
-  
 
   login(): void {
     if (this.sellerLoginForm.valid) {
       const loginData: signUp = this.sellerLoginForm.value;
       this.authError = "";
-      this.seller.userLogin(loginData);
-      this.seller.isLoginError.subscribe((isError) => {
-        if (isError) {
-          this.authError = "Email or password is not correct";
-        }
+      this.authService.login(loginData, false).subscribe(response => {
+        console.log('Login successful:', response);
+        this.router.navigate(['/user-home']); // Redirect to user home after successful login
+      }, error => {
+        console.error('Login error:', error);
+        this.authError = "Email or password is not correct";
       });
     }
   }
