@@ -9,10 +9,16 @@ import { product } from '../data-type';
   styleUrls: ['./seller-add-product.component.css']
 })
 export class SellerAddProductComponent implements OnInit {
-  addProductForm: FormGroup;
+  addProductForm!: FormGroup;
   addProductMessage: string | undefined;
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private productService: ProductService) { }
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm(): void {
     this.addProductForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
@@ -23,17 +29,14 @@ export class SellerAddProductComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   submit(): void {
     if (this.addProductForm.valid) {
       const data: product = this.addProductForm.value;
       this.productService.addProduct(data).subscribe((result) => {
-        console.warn(result);
         if (result) {
           this.addProductMessage = "Product is successfully added";
           setTimeout(() => (this.addProductMessage = undefined), 3000);
-          this.addProductForm.reset(); // Reset form after successful submission
+          this.addProductForm.reset();
         }
       });
     }

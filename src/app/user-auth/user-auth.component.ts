@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
 import { login, signUp, product, cart } from '../data-type';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-auth',
@@ -12,14 +13,17 @@ import { login, signUp, product, cart } from '../data-type';
 export class UserAuthComponent implements OnInit {
   showLogin: boolean = true;
   authError: string = "";
-  userLoginForm: FormGroup;
-  userSignUpForm: FormGroup;
+  userLoginForm!: FormGroup;
+  userSignUpForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
     private productService: ProductService,
     private formBuilder: FormBuilder
   ) {
+  constructor(private user: UserService, private formBuilder: FormBuilder) { }
+
+  ngOnInit(): void {
     this.userLoginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
@@ -45,6 +49,10 @@ export class UserAuthComponent implements OnInit {
         console.error('Sign up error:', error);
         this.authError = "Error occurred during sign up.";
       });
+  signUp(): void {
+    if (this.userSignUpForm.valid) {
+      const signUpData = this.userSignUpForm.value;
+      this.user.userSignUp(signUpData);
     }
   }
 
@@ -58,6 +66,12 @@ export class UserAuthComponent implements OnInit {
       }, error => {
         console.error('Login error:', error);
         this.authError = "User not found";
+      const loginData = this.userLoginForm.value;
+      this.user.userLogin(loginData);
+      this.user.invalidUserAuth.subscribe((result) => {
+        if (result) {
+          this.authError = "User not found";
+        }
       });
     }
   }

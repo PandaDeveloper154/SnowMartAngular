@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { product } from '../data-type';
+import { Component, AfterViewInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
+import { product } from '../data-type';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +14,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.product.getAllProducts().subscribe((data) => {
-      this.popularProducts = data;
-    })
+export class HomeComponent implements AfterViewInit {
+  popularProducts: product[] | undefined;
+  trendyProducts: product[] | undefined;
+  searchtext: string = '';
 
+  constructor(private productService: ProductService) { }
+
+  ngAfterViewInit(): void {
+    this.productService.popularProducts().subscribe((data) => {
+      this.popularProducts = data;
+    });
+
+    this.productService.trendyProducts().subscribe((data) => {
+      this.trendyProducts = data;
+    });
   }
 }

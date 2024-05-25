@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { cart, order } from '../data-type';
 import { ProductService } from '../services/product.service';
+import { cart, order } from '../data-type';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -20,6 +23,7 @@ export class CheckoutComponent implements OnInit {
     private fb: FormBuilder,
     private product: ProductService,
     private router: Router
+    private productService: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +33,7 @@ export class CheckoutComponent implements OnInit {
     if (userId) {
       this.loadCart(userId);
     }
+    this.loadCartData();
   }
 
   initForm(): void {
@@ -50,6 +55,24 @@ export class CheckoutComponent implements OnInit {
       });
       this.totalPrice = price + (price / 10) + 100 - (price / 10);
     });
+  loadCartData(): void {
+    this.productService.currentCart()
+      .pipe(
+        catchError(error => {
+          console.error('Error loading cart data:', error);
+          return throwError('Error loading cart data. Please try again later.');
+        })
+      )
+      .subscribe((result) => {
+        let price = 0;
+        this.cartData = result;
+        result.forEach((item) => {
+          if (item.quantity) {
+            price = price + (+item.price * +item.quantity);
+          }
+        });
+        this.totalPrice = price + (price / 10) + 100 - (price / 10);
+      });
   }
 
   orderNow(): void {
@@ -62,22 +85,27 @@ export class CheckoutComponent implements OnInit {
         userId,
         id: undefined
       };
-
       this.cartData?.forEach((item) => {
         setTimeout(() => {
-          item.id && this.product.deleteCartItems(item.id);
+          item.id && this.productService.deleteCartItems(item.id);
         }, 700);
       });
 
-      this.product.orderNow(orderData).subscribe((result) => {
-        if (result) {
-          this.orderMsg = "Order has been placed";
-          setTimeout(() => {
-            this.orderMsg = undefined;
-            this.router.navigate(['/my-orders']);
-          }, 4000);
-        }
-      });
+      this.productService.orderNow(orderData)
+        .pipe(
+          catchError(error => {
+            console.error('Error placing order:', error);
+            return throwError('Error placing order. Please try again later.');
+          })
+        )
+        .subscribe((result) => {
+          if (result) {
+            this.orderMsg = "Order has been placed";
+            setTimeout(() => {
+              this.orderMsg = undefined;
+            }, 4000);
+          }
+        });
     }
   }
 }
