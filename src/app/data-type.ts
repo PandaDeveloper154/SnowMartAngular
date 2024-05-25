@@ -1,17 +1,20 @@
 export interface signUp {
-  name: string;
+  userName: string;
   email: string;
   password: string;
+  token?: string;
 }
 export interface login {
-  email: String;
+  username: string;
   password: String;
+  token?: string;
 }
 
 export interface product {
   name: string,
   price: number,
-  category: string,
+  categoryId: string,
+  categoryName: string
   color: string,
   image: string,
   description: string,
@@ -22,7 +25,8 @@ export interface product {
 export interface cart {
   name: string,
   price: number,
-  category: string,
+  categoryId: string,
+  categoryName: string
   color: string,
   image: string,
   description: string,

@@ -22,7 +22,7 @@ export class SellerUpdateComponent implements OnInit {
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
-      category: ['', Validators.required],
+      categoryId: ['', Validators.required],
       color: ['', Validators.required],
       description: ['', Validators.required],
       image: ['', Validators.required]

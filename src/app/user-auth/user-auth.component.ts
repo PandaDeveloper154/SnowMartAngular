@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
 import { login, signUp, product, cart } from '../data-type';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-auth',
@@ -19,9 +18,8 @@ export class UserAuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private productService: ProductService,
-    private formBuilder: FormBuilder
-  ) {
-  constructor(private user: UserService, private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
     this.userLoginForm = this.formBuilder.group({
@@ -34,25 +32,23 @@ export class UserAuthComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
     });
-  }
 
-  ngOnInit(): void {
-    this.authService.authReload(false);
+    this.authService.authReload();
   }
 
   signUp(): void {
     if (this.userSignUpForm.valid) {
       const signUpData: signUp = this.userSignUpForm.value;
-      this.authService.signUp(signUpData, false).subscribe(response => {
+      this.authService.signUp(signUpData).subscribe(response => {
         console.log('Sign up successful:', response);
       }, error => {
         console.error('Sign up error:', error);
-        this.authError = "Error occurred during sign up.";
+        if (error === 'Token not found') {
+          this.authError = "Token not found in localStorage";
+        } else {
+          this.authError = "Error occurred during sign up.";
+        }
       });
-  signUp(): void {
-    if (this.userSignUpForm.valid) {
-      const signUpData = this.userSignUpForm.value;
-      this.user.userSignUp(signUpData);
     }
   }
 
@@ -60,18 +56,12 @@ export class UserAuthComponent implements OnInit {
     if (this.userLoginForm.valid) {
       const loginData: login = this.userLoginForm.value;
       this.authError = "";
-      this.authService.login(loginData, false).subscribe(response => {
+      this.authService.login(loginData).subscribe(response => {
         console.log('Login successful:', response);
         this.localCartToRemoteCart();
       }, error => {
         console.error('Login error:', error);
         this.authError = "User not found";
-      const loginData = this.userLoginForm.value;
-      this.user.userLogin(loginData);
-      this.user.invalidUserAuth.subscribe((result) => {
-        if (result) {
-          this.authError = "User not found";
-        }
       });
     }
   }
@@ -103,12 +93,12 @@ export class UserAuthComponent implements OnInit {
             if (result) {
               console.warn("data is stored in DB");
             }
-          })
+          });
         }, 500);
         if (cartDataList.length === index + 1) {
-          localStorage.removeItem('localCart')
+          localStorage.removeItem('localCart');
         }
-      })
+      });
     }
 
     setTimeout(() => {

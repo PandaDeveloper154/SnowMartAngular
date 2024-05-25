@@ -19,12 +19,13 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.price | currency}}</td>
                 <td>{{ item.color }}</td>
-                <td>{{ item.category }}</td>
+                <td>{{ item.categoryId }}</td>
                 <td>{{ item.description }}</td>
                 <td>
                     <fa-icon (click)="deleteProduct(item.id)" [icon]="icon"></fa-icon>
-                    <a class="adjust-update-link" routerLink="/seller-update-product/{{item.id}}"> <fa-icon  [icon]="iconEdit"></fa-icon></a>
-                  </td>
+                    <a class="adjust-update-link" routerLink="/seller-update-product/{{item.id}}"> <fa-icon
+                            [icon]="iconEdit"></fa-icon></a>
+                </td>
             </tr>
         </tbody>
     </table>

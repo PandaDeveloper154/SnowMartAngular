@@ -7,13 +7,6 @@ import { product } from '../data-type';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
-  popularProducts: undefined | product[];
-  searchtext: string ='';
-  constructor(private product: ProductService) { }
-
-  ngOnInit(): void {
-    this.product.getAllProducts().subscribe((data) => {
 export class HomeComponent implements AfterViewInit {
   popularProducts: product[] | undefined;
   trendyProducts: product[] | undefined;
@@ -22,12 +15,8 @@ export class HomeComponent implements AfterViewInit {
   constructor(private productService: ProductService) { }
 
   ngAfterViewInit(): void {
-    this.productService.popularProducts().subscribe((data) => {
+    this.productService.getAllProducts().subscribe((data) => {
       this.popularProducts = data;
-    });
-
-    this.productService.trendyProducts().subscribe((data) => {
-      this.trendyProducts = data;
     });
   }
 }

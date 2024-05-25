@@ -42,14 +42,8 @@ export class SellerHomeComponent implements OnInit {
     }, 3000);
   }
 
-  list() {
-    this.product.getAllProducts().subscribe((result) => {
-      if (result) {
-        this.productList = result;
-      }
-    });
   loadProductList(): void {
-    this.productService.productList()
+    this.productService.getAllProducts()
       .pipe(
         catchError(error => {
           console.error('Error loading product list:', error);

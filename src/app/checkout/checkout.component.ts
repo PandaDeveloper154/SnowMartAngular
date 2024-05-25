@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { cart, order } from '../data-type';
 import { ProductService } from '../services/product.service';
 import { cart, order } from '../data-type';
 import { catchError } from 'rxjs/operators';
@@ -21,9 +20,8 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private product: ProductService,
+    private productService: ProductService,
     private router: Router
-    private productService: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -32,8 +30,8 @@ export class CheckoutComponent implements OnInit {
     const userId = user && JSON.parse(user).id;
     if (userId) {
       this.loadCart(userId);
+      this.loadCartData(userId); // Pass userId here
     }
-    this.loadCartData();
   }
 
   initForm(): void {
@@ -45,7 +43,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   loadCart(userId: number): void {
-    this.product.currentCart(userId).subscribe((result) => {
+    this.productService.currentCart(userId).subscribe((result) => {
       let price = 0;
       this.cartData = result;
       result.forEach((item) => {
@@ -55,8 +53,10 @@ export class CheckoutComponent implements OnInit {
       });
       this.totalPrice = price + (price / 10) + 100 - (price / 10);
     });
-  loadCartData(): void {
-    this.productService.currentCart()
+  }
+
+  loadCartData(userId: number): void {
+    this.productService.currentCart(userId)
       .pipe(
         catchError(error => {
           console.error('Error loading cart data:', error);
@@ -74,6 +74,7 @@ export class CheckoutComponent implements OnInit {
         this.totalPrice = price + (price / 10) + 100 - (price / 10);
       });
   }
+
 
   orderNow(): void {
     const user = localStorage.getItem('user');
