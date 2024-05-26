@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { SellerAuthComponent } from './seller-auth/seller-auth.component';
-import { SellerHomeComponent } from './seller-home/seller-home.component';
-import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
-import { SellerUpdateComponent } from './seller-update/seller-update.component';
+import { AdminAuthComponent } from './admin-auth/admin-auth.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
+import { AdminUpdateComponent } from './admin-update/admin-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,16 +21,17 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { FilterPipe } from './filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    SellerAuthComponent,
-    SellerHomeComponent,
-    SellerAddProductComponent,
-    SellerUpdateComponent,
+    AdminAuthComponent,
+    AdminHomeComponent,
+    AdminAddProductComponent,
+    AdminUpdateComponent,
     ProductDetailsComponent,
     FooterComponent,
     UserAuthComponent,
@@ -48,7 +49,7 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

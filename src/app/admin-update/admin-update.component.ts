@@ -5,14 +5,15 @@ import { ProductService } from '../services/product.service';
 import { product } from '../data-type';
 
 @Component({
-  selector: 'app-seller-update',
-  templateUrl: './seller-update.component.html',
-  styleUrls: ['./seller-update.component.css']
+  selector: 'app-admin-update',
+  templateUrl: './admin-update.component.html',
+  styleUrls: ['./admin-update.component.css']
 })
-export class SellerUpdateComponent implements OnInit {
+export class AdminUpdateComponent implements OnInit {
   productData: product | undefined;
   productMessage: string | undefined;
   updateForm: FormGroup;
+  categories: string[] = ['Laptop', 'Phone', 'Tablet']; // Example array of categories
 
   constructor(
     private router: ActivatedRoute,
@@ -22,7 +23,7 @@ export class SellerUpdateComponent implements OnInit {
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      category: ['', Validators.required], // Changed formControlName to category
       color: ['', Validators.required],
       description: ['', Validators.required],
       image: ['', Validators.required]

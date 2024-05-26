@@ -14,7 +14,7 @@ export interface product {
   name: string,
   price: number,
   categoryId: string,
-  categoryName: string
+  categoryName: string,
   color: string,
   image: string,
   description: string,

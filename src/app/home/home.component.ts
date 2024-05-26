@@ -9,7 +9,6 @@ import { product } from '../data-type';
 })
 export class HomeComponent implements AfterViewInit {
   popularProducts: product[] | undefined;
-  trendyProducts: product[] | undefined;
   searchtext: string = '';
 
   constructor(private productService: ProductService) { }

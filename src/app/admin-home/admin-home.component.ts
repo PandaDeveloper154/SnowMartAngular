@@ -6,11 +6,11 @@ import { throwError } from 'rxjs';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-seller-home',
-  templateUrl: './seller-home.component.html',
-  styleUrls: ['./seller-home.component.css'],
+  selector: 'app-admin-home',
+  templateUrl: './admin-home.component.html',
+  styleUrls: ['./admin-home.component.css'],
 })
-export class SellerHomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit {
   productList: product[] | undefined;
   productMessage: string | undefined;
   icon = faTrash; // Define the icon property

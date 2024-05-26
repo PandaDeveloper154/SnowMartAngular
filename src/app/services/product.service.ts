@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map,tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { cart, order, product } from '../data-type';
 
 @Injectable({
@@ -12,10 +12,10 @@ export class ProductService {
   private apiUrl = 'https://localhost:7040/api';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }).set('access-control-allow-origin', "https://localhost:7040/"),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Handle HTTP operation errors
   private handleError(error: any) {
@@ -88,9 +88,13 @@ export class ProductService {
     return this.http.post(`${this.apiUrl}/CartItem`, cartData, this.httpOptions)
       .pipe(
         tap(_ => console.log('Added to cart')),
-        catchError(this.handleError)
+        catchError(error => {
+          console.error('Error adding to cart:', error);
+          return throwError(error); // Rethrow the error to be caught by the caller
+        })
       );
   }
+
 
   getCartList(userId: number): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/CartItem?userId=${userId}`, { observe: 'response' })

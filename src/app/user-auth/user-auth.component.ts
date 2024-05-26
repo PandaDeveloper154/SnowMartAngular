@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
 import { login, signUp, product, cart } from '../data-type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-auth',
@@ -19,21 +20,22 @@ export class UserAuthComponent implements OnInit {
     private authService: AuthService,
     private productService: ProductService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.userLoginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
     });
 
     this.userSignUpForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
     });
 
-    this.authService.authReload();
+    this.authService.authReload(); // Kiểm tra trạng thái đăng nhập khi component được khởi tạo
   }
 
   signUp(): void {
@@ -59,6 +61,7 @@ export class UserAuthComponent implements OnInit {
       this.authService.login(loginData).subscribe(response => {
         console.log('Login successful:', response);
         this.localCartToRemoteCart();
+        this.router.navigate(['/']); // Navigate to home page after successful login
       }, error => {
         console.error('Login error:', error);
         this.authError = "User not found";

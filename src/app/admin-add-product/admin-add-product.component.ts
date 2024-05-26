@@ -4,11 +4,11 @@ import { ProductService } from '../services/product.service';
 import { product } from '../data-type';
 
 @Component({
-  selector: 'app-seller-add-product',
-  templateUrl: './seller-add-product.component.html',
-  styleUrls: ['./seller-add-product.component.css']
+  selector: 'app-admin-add-product',
+  templateUrl: './admin-add-product.component.html',
+  styleUrls: ['./admin-add-product.component.css']
 })
-export class SellerAddProductComponent implements OnInit {
+export class AdminAddProductComponent implements OnInit {
   addProductForm!: FormGroup;
   addProductMessage: string | undefined;
 

@@ -9,32 +9,37 @@ import { ProductService } from '../services/product.service';
 })
 export class HeaderComponent implements OnInit {
   menuType: string = 'default';
-  sellerName: string = '';
+  adminName: string = '';
   userName: string = "";
   cartItems = 0;
 
-  constructor(private route: Router, private productService: ProductService) { }
+  constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.route.events.subscribe((val: any) => {
-      if (val.url) {
-        if (localStorage.getItem('seller') && val.url.includes('seller')) {
-          let sellerStore = localStorage.getItem('seller');
-          let sellerData = sellerStore && JSON.parse(sellerStore)[0];
-          if (sellerData && sellerData.name) {
-            this.sellerName = sellerData.name;
-          }
-          this.menuType = 'seller';
-        } else if (localStorage.getItem('user')) {
-          let userStore = localStorage.getItem('user');
-          let userData = userStore && JSON.parse(userStore);
-          this.userName = userData.name;
-          this.menuType = 'user';
-        } else {
-          this.menuType = 'default';
-        }
+    this.updateHeader(); // Cập nhật trạng thái của HeaderComponent
+  }
+
+  updateHeader(): void {
+    console.log("Updating header...");
+
+    if (localStorage.getItem('admin')) {
+      let adminStore = localStorage.getItem('admin');
+      let adminData = adminStore && JSON.parse(adminStore);
+      if (adminData && adminData.userName) {
+        this.adminName = adminData.userName;
       }
-    });
+      this.menuType = 'admin';
+    } else if (localStorage.getItem('user')) {
+      let userStore = localStorage.getItem('user');
+      let userData = userStore && JSON.parse(userStore);
+      this.userName = userData.name;
+      this.menuType = 'user';
+    } else {
+      this.menuType = 'default';
+    }
+
+    console.log("Menu type:", this.menuType);
+
     let cartData = localStorage.getItem('localCart');
     if (cartData) {
       this.cartItems = JSON.parse(cartData).length
@@ -45,17 +50,22 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('seller');
-    this.route.navigate(['/']);
+    localStorage.removeItem('admin');
+    localStorage.removeItem('role');
+    this.updateHeader(); // Cập nhật lại HeaderComponent
+    this.router.navigate(['/']);
+    this.productService.cartData.next([]);
   }
 
   userLogout() {
     localStorage.removeItem('user');
-    this.route.navigate(['/user-auth']);
-    this.productService.cartData.emit([]);
+    localStorage.removeItem('role');
+    this.updateHeader(); // Cập nhật lại HeaderComponent
+    this.router.navigate(['/user-auth']);
+    this.productService.cartData.next([]);
   }
 
   redirectToDetails(id: number) {
-    this.route.navigate(['/details/' + id]);
+    this.router.navigate(['/details/' + id]);
   }
 }

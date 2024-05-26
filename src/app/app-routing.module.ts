@@ -1,28 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { SellerAuthComponent } from './seller-auth/seller-auth.component';
-import { SellerHomeComponent } from './seller-home/seller-home.component';
-import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
-import { SellerUpdateComponent } from './seller-update/seller-update.component';
+import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './admin.guard';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { UserAuthComponent } from './user-auth/user-auth.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
+import { AdminUpdateComponent } from './admin-update/admin-update.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'seller-auth', component: SellerAuthComponent },
-  { path: 'seller-home', component: SellerHomeComponent, canActivate: [AuthGuard] },
-  { path: 'seller-add-product', component: SellerAddProductComponent, canActivate: [AuthGuard] },
-  { path: 'seller-update-product/:id', component: SellerUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'admin-auth', component: AdminAuthComponent },
+  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
+  { path: 'admin-add-product', component: AdminAddProductComponent, canActivate: [AdminGuard] },
+  { path: 'admin-update-product/:id', component: AdminUpdateComponent, canActivate: [AdminGuard] },
   { path: 'details/:productId', component: ProductDetailsComponent },
   { path: 'user-auth', component: UserAuthComponent },
   { path: 'cart-page', component: CartPageComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'my-orders', component: MyOrdersComponent }
-
+  { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
