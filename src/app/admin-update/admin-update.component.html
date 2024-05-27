@@ -4,9 +4,7 @@
   <form [formGroup]="updateForm" (ngSubmit)="submit()" class="common-form">
     <input type="text" class="form-input" placeholder="Enter Product Name" formControlName="name" />
     <input type="text" class="form-input" placeholder="Enter Product Price" formControlName="price" />
-    <select class="form-input" formControlName="categoryId">
-      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-    </select>
+    <input type="text" class="form-input" placeholder="Enter Product Category" formControlName="categoryId" />
     <input type="text" class="form-input" placeholder="Enter Product Color" formControlName="color" />
     <textarea type="text" class="form-input" placeholder="Enter Product Description"
       formControlName="description"></textarea>
