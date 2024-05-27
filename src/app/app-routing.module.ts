@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
-import { AuthGuard } from './auth.guard';
-import { AdminGuard } from './admin.guard';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { UserAuthComponent } from './user-auth/user-auth.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
@@ -12,6 +10,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
 import { AdminUpdateComponent } from './admin-update/admin-update.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
