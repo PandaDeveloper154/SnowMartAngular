@@ -23,7 +23,7 @@ export class AdminUpdateComponent implements OnInit {
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
-      category: ['', Validators.required], // Changed formControlName to category
+      categoryId: ['', Validators.required], // Changed formControlName to category
       color: ['', Validators.required],
       description: ['', Validators.required],
       image: ['', Validators.required]

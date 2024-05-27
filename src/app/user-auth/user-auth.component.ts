@@ -35,7 +35,7 @@ export class UserAuthComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
     });
 
-    this.authService.authReload(); // Kiểm tra trạng thái đăng nhập khi component được khởi tạo
+    this.authService.authReload(); 
   }
 
   signUp(): void {

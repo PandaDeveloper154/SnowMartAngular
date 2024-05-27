@@ -16,9 +16,9 @@ import { AdminUpdateComponent } from './admin-update/admin-update.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'admin-auth', component: AdminAuthComponent },
-  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
-  { path: 'admin-add-product', component: AdminAddProductComponent, canActivate: [AdminGuard] },
-  { path: 'admin-update-product/:id', component: AdminUpdateComponent, canActivate: [AdminGuard] },
+  { path: 'admin-home', component: AdminHomeComponent },
+  { path: 'admin-add-product', component: AdminAddProductComponent},
+  { path: 'admin-update-product/:id', component: AdminUpdateComponent },
   { path: 'details/:productId', component: ProductDetailsComponent },
   { path: 'user-auth', component: UserAuthComponent },
   { path: 'cart-page', component: CartPageComponent },

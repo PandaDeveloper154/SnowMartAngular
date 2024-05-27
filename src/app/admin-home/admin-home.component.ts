@@ -13,8 +13,8 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 export class AdminHomeComponent implements OnInit {
   productList: product[] | undefined;
   productMessage: string | undefined;
-  icon = faTrash; // Define the icon property
-  iconEdit = faEdit; // Define the iconEdit property
+  icon = faTrash; 
+  iconEdit = faEdit; 
 
   constructor(private productService: ProductService) { }
 

@@ -22,7 +22,7 @@ export class AdminAddProductComponent implements OnInit {
     this.addProductForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
-      category: ['', Validators.required],
+      categoryId: ['', Validators.required],
       color: ['', Validators.required],
       description: ['', Validators.required],
       image: ['', Validators.required]

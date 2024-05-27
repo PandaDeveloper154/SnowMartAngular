@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.updateHeader(); // Cập nhật trạng thái của HeaderComponent
+    this.updateHeader(); 
   }
 
   updateHeader(): void {
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.removeItem('admin');
     localStorage.removeItem('role');
-    this.updateHeader(); // Cập nhật lại HeaderComponent
+    this.updateHeader(); 
     this.router.navigate(['/']);
     this.productService.cartData.next([]);
   }
@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
   userLogout() {
     localStorage.removeItem('user');
     localStorage.removeItem('role');
-    this.updateHeader(); // Cập nhật lại HeaderComponent
+    this.updateHeader(); 
     this.router.navigate(['/user-auth']);
     this.productService.cartData.next([]);
   }

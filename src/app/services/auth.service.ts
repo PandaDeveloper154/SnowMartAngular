@@ -63,7 +63,6 @@ export class AuthService {
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
 
-          // Lưu thông tin người dùng hoặc admin vào localStorage
           if (response.role === 'Admin') {
             localStorage.setItem('admin', JSON.stringify(response));
           } else {
@@ -72,7 +71,6 @@ export class AuthService {
 
           this.isUserLoggedIn.next(true);
 
-          // Kiểm tra localStorage ngay sau khi đăng nhập thành công
           console.log('Admin:', localStorage.getItem('admin'));
           console.log('User:', localStorage.getItem('user'));
 

@@ -59,7 +59,7 @@ export class ProductService {
         catchError(this.handleError)
       );
   }
-
+  
   addProduct(product: product): Observable<product> {
     return this.http.post<product>(`${this.apiUrl}/Product`, product, this.httpOptions)
       .pipe(
@@ -90,7 +90,7 @@ export class ProductService {
         tap(_ => console.log('Added to cart')),
         catchError(error => {
           console.error('Error adding to cart:', error);
-          return throwError(error); // Rethrow the error to be caught by the caller
+          return throwError(error); 
         })
       );
   }
@@ -99,7 +99,7 @@ export class ProductService {
   getCartList(userId: number): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/CartItem?userId=${userId}`, { observe: 'response' })
       .pipe(
-        map((response) => response.body as product[]), // Cast the response body to product[]
+        map((response) => response.body as product[]), 
         tap(_ => console.log('Fetched cart list')),
         catchError(this.handleError)
       );
@@ -109,7 +109,7 @@ export class ProductService {
     return this.http.get<cart[]>(`${this.apiUrl}/CartItem?userId=${userId}`).pipe(
       catchError((error) => {
         console.error('Error fetching current cart:', error);
-        throw error; // Rethrow the error for the component to handle
+        throw error; 
       })
     );
   }
