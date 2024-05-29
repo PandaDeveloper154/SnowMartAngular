@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProductService } from '../services/product.service';
-import { cart, order } from '../data-type';
+import { ProductService } from '../../services/product.service';
+import { cart, order } from '../../data-type';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 

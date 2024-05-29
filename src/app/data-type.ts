@@ -1,13 +1,19 @@
-export interface signUp {
-  userName: string;
-  email: string;
-  password: string;
-  token?: string;
+export interface SignUp {
+  UserName: string;
+  Email: string;
+  Password: string;
 }
-export interface login {
-  username: string;
-  password: String;
-  token?: string;
+
+export interface Login {
+  UserName: string;
+  Password: string;
+}
+
+export interface AccountDto {
+  UserName: string;
+  Email: string;
+  Token?: string;
+  Role: string;
 }
 
 export interface product {
@@ -31,6 +37,11 @@ export interface cart {
   image: string,
   description: string,
   id: number | undefined,
+  quantity: undefined | number,
+  productId: number,
+  userId: number
+}
+export interface cartDto{
   quantity: undefined | number,
   productId: number,
   userId: number

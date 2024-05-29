@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { cart, product } from '../data-type';
-import { ProductService } from '../services/product.service';
+import { cart, product } from '../../data-type';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-details',

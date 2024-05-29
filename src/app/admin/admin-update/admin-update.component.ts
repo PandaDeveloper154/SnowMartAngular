@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductService } from '../services/product.service';
-import { product } from '../data-type';
+import { ProductService } from '../../services/product.service';
+import { product } from '../../data-type';
 
 @Component({
   selector: 'app-admin-update',

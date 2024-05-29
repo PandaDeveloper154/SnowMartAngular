@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { product } from '../data-type';
+import { ProductService } from '../../services/product.service';
+import { product } from '../../data-type';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
