@@ -89,7 +89,7 @@ export class AuthService {
       const user: AccountDto = {
         UserName: tokenPayload.given_name,
         Email: tokenPayload.email,
-        Role: tokenPayload.role || 'User' // Assign a default role if not provided
+        Role: tokenPayload.role || 'User' 
       };
       return user;
     }
