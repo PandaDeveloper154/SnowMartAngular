@@ -3,12 +3,23 @@
   <p class="message-p">{{ productMessage }}</p>
   <form [formGroup]="updateForm" (ngSubmit)="submit()" class="common-form">
     <input type="text" class="form-input" placeholder="Enter Product Name" formControlName="name" />
+    <p class="invalid-input"><span *ngIf="updateForm.get('name')?.invalid && updateForm.get('name')?.touched">Please enter Name</span></p>
+    
     <input type="text" class="form-input" placeholder="Enter Product Price" formControlName="price" />
+    <p class="invalid-input"><span *ngIf="updateForm.get('price')?.invalid && updateForm.get('price')?.touched">Please enter Price</span></p>
+    
     <input type="text" class="form-input" placeholder="Enter Product Category" formControlName="categoryId" />
+    <p class="invalid-input"><span *ngIf="updateForm.get('categoryId')?.invalid && updateForm.get('categoryId')?.touched">Please enter Category</span></p>
+    
     <input type="text" class="form-input" placeholder="Enter Product Color" formControlName="color" />
-    <textarea type="text" class="form-input" placeholder="Enter Product Description"
-      formControlName="description"></textarea>
+    <p class="invalid-input"><span *ngIf="updateForm.get('color')?.invalid && updateForm.get('color')?.touched">Please enter Color</span></p>
+    
+    <textarea type="text" class="form-input" placeholder="Enter Product Description" formControlName="description"></textarea>
+    <p class="invalid-input"><span *ngIf="updateForm.get('description')?.invalid && updateForm.get('description')?.touched">Please enter Description</span></p>
+    
     <input type="text" class="form-input" placeholder="Enter Product Image URL" formControlName="image" />
+    <p class="invalid-input"><span *ngIf="updateForm.get('image')?.invalid && updateForm.get('image')?.touched">Please enter Url Image</span></p>
+    
     <button type="submit" class="form-button">Update Product</button>
   </form>
 </div>

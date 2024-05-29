@@ -2,7 +2,6 @@
     <h1><a routerLink="/">SnowMart</a></h1>
     <div [ngSwitch]="menuType">
         <ul *ngSwitchCase="'default'">
-            <li><a routerLink="admin-auth">Admin</a></li>
             <li><a routerLink="">Home</a></li>
             <li><a routerLink="user-auth">Login/Sign-up</a></li>
             <li><a href="#">Cart({{cartItems}})</a></li>
