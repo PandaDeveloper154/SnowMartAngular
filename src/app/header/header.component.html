@@ -1,9 +1,20 @@
 <nav class="nav">
     <h1><a routerLink="/">SnowMart</a></h1>
+    <div *ngIf="menuType!=='admin'" class="nav-search">
+      <input type="text"
+      #searchInput
+      (keyup)="searchProduct($event)" (blur)="hideSearch()" placeholder="Search Products" />
+      <button (click)="submitSearch(searchInput.value)" >Search</button>
+      <ul class="suggested-search" *ngIf="searchResult">
+        <li *ngFor="let item of searchResult">
+          <a (mousedown)="redirectToDetails(item.id)" >{{item.name}}</a>
+        </li>
+      </ul>
+    </div>
     <div [ngSwitch]="menuType">
         <ul *ngSwitchCase="'default'">
             <li><a routerLink="">Home</a></li>
-            <li><a routerLink="user-auth">Login/Sign-up</a></li>
+            <li><a routerLink="auth">Login/Sign-up</a></li>
             <li><a href="#">Cart({{cartItems}})</a></li>
 
         </ul>

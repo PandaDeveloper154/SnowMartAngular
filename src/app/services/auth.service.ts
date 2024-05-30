@@ -42,7 +42,7 @@ export class AuthService {
       if (role === 'Admin') {
         this.router.navigate(['/admin-home']);
       } else {
-        this.router.navigate(['/user-auth']);
+        this.router.navigate(['/auth']);
       }
     } else {
       this.router.navigate(['/']);
@@ -100,6 +100,7 @@ export class AuthService {
     if (response.Token) {
       localStorage.setItem('token', response.Token);
       localStorage.setItem('role', response.Role || ''); // Ensure role is not null
+      this.isUserLoggedIn.next(true);
     }
   }
 }

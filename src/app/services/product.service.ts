@@ -40,8 +40,7 @@ export class ProductService {
         tap(_ => console.log(`Fetched product with ID=${id}`)),
         catchError(this.handleError)
       );
-  }
-
+    }
   deleteProduct(id: number): Observable<any> {
     const url = `${this.apiUrl}/Product/${id}`;
     return this.http.delete(url, this.httpOptions)
@@ -66,6 +65,10 @@ export class ProductService {
         tap((newProduct: product) => console.log(`Added product with ID=${newProduct.id}`)),
         catchError(this.handleError)
       );
+  }
+
+  searchProducts(query: string): Observable<product[]> {
+    return this.http.get<product[]>(`${this.apiUrl}/Product?categoryName=${query}`);
   }
 
   // Cart methods

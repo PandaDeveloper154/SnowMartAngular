@@ -10,6 +10,9 @@ import { product } from '../../data-type';
 export class HomeComponent implements AfterViewInit {
   popularProducts: product[] | undefined;
   searchtext: string = '';
+//   pageNumber: number = 1;
+// totalPages: number = 1;
+
 
   constructor(private productService: ProductService) { }
 
@@ -17,5 +20,5 @@ export class HomeComponent implements AfterViewInit {
     this.productService.getAllProducts().subscribe((data) => {
       this.popularProducts = data;
     });
-  }
-}
+  
+  }}

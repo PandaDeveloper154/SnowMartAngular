@@ -11,6 +11,7 @@ import { AdminUpdateComponent } from './admin/admin-update/admin-update.componen
 import { AuthGuard } from './guard/auth.guard';
 import { AuthComponent } from './auth/auth.component';
 import { AdminGuard } from './guard/admin.guard';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'admin-add-product', component: AdminAddProductComponent,canActivate: [AdminGuard]},
   { path: 'admin-update-product/:id', component: AdminUpdateComponent,canActivate: [AdminGuard] },
   { path: 'details/:productId', component: ProductDetailsComponent },
-  { path: 'user-auth', component: AuthComponent },
+  { path: 'search/:query', component: SearchComponent },
+  { path: 'auth', component: AuthComponent },
   { path: 'cart-page', component: CartPageComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard] },

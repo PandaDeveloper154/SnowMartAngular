@@ -17,11 +17,11 @@ import { FooterComponent } from './footer/footer.component';
 import { CartPageComponent } from './user/cart-page/cart-page.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { FilterPipe } from './filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthComponent } from './auth/auth.component';
+import { SearchComponent } from './search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +35,8 @@ import { AuthComponent } from './auth/auth.component';
     CartPageComponent,
     CheckoutComponent,
     MyOrdersComponent,
-    FilterPipe,
-    AuthComponent
+    AuthComponent,
+    SearchComponent
   ],
   imports: [
     JwtModule.forRoot({

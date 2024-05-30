@@ -55,7 +55,7 @@ h1 a {
     text-decoration: none;
 }
 
-.suggested-result {
+.suggested-search {
     position: absolute;
     top: 40px;
     z-index: 10;
@@ -65,12 +65,12 @@ h1 a {
     width: 300px;
 }
 
-.suggested-result li {
+.suggested-search li {
     padding: 5px;
     border: 1px solid #ddd;
 }
 
-.suggested-result li a {
+.suggested-search li a {
     cursor: pointer;
     color: rgb(43, 92, 226);
 }

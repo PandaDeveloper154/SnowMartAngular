@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
+import { product } from '../data-type';
 
 @Component({
   selector: 'app-header',
@@ -12,13 +13,21 @@ export class HeaderComponent implements OnInit {
   menuType: string = 'default';
   userName: string = "";
   cartItems = 0;
+  searchResult: undefined | product[];
 
   constructor(private authService: AuthService, private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.updateHeader();
+    this.authService.isUserLoggedIn.subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.updateHeader();
+      } else {
+        this.menuType = 'default';
+        this.userName = '';
+        this.cartItems = 0;
+      }
+    });
   }
-
   updateHeader(): void {
     console.log("Updating header...");
     if (this.authService.isLoggedIn()) {
@@ -49,6 +58,24 @@ export class HeaderComponent implements OnInit {
     this.updateHeader(); 
     this.router.navigate(['/']);
     this.productService.cartData.next([]);
+  }
+  searchProduct(query:KeyboardEvent){
+    if(query){
+      const element = query.target as HTMLInputElement;
+      this.productService.searchProducts(element.value).subscribe((result)=>{
+        if(result.length>5){
+          result.length=length
+        }
+        this.searchResult=result;
+      })
+    }
+  }
+  hideSearch(){
+    this.searchResult=undefined
+  }
+  submitSearch(val:string){
+    console.warn(val)
+  this.router.navigate([`search/${val}`]);
   }
 
   redirectToDetails(id: number) {

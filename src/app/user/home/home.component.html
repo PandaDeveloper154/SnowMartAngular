@@ -13,11 +13,8 @@
   </ngb-carousel>
 <div class="product-list-wrapper">
 <h1>Products</h1>
-<div class="form-outline mt-3">
-  <input type="search" [(ngModel)]="searchtext" id="form1" class="form-control" placeholder="Search" aria-label="search" />        
-</div>
 <div class="row">
-  <div class="col-sm-3" *ngFor="let item of popularProducts|filter: searchtext  ">
+  <div class="col-sm-3" *ngFor="let item of popularProducts ">
     <div class="product-item">
       <img src="{{item.image}}" alt="">
     <div class="product-details">
