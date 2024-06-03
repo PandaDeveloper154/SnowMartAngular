@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { product } from '../../data-type';
+import { category, product } from '../../data-type';
 
 @Component({
   selector: 'app-admin-add-product',
@@ -11,7 +11,7 @@ import { product } from '../../data-type';
 export class AdminAddProductComponent implements OnInit {
   addProductForm!: FormGroup;
   addProductMessage: string | undefined;
-  categories: any[] = []
+  categories: category[] = []
 
   constructor(private fb: FormBuilder, private productService: ProductService) { }
 

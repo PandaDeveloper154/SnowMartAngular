@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { product } from '../../data-type';
+import { category, product } from '../../data-type';
 
 @Component({
   selector: 'app-admin-update',
@@ -13,7 +13,7 @@ export class AdminUpdateComponent implements OnInit {
   productData: product | undefined;
   productMessage: string | undefined;
   updateForm: FormGroup;
-  categories: any[] = []; 
+  categories: category[] = []; 
 
   constructor(
     private router: ActivatedRoute,
