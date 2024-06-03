@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { cart, order, product } from '../data-type';
+import { cart, category, order, product } from '../data-type';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +29,14 @@ export class ProductService {
     return this.http.get<product[]>(`${this.apiUrl}/Product`)
       .pipe(
         tap(_ => console.log('Fetched all products')),
+        catchError(this.handleError)
+      );
+  }
+
+  getCategories(): Observable<category[]> {
+    return this.http.get<category[]>(`${this.apiUrl}/Category`)
+      .pipe(
+        tap(_ => console.log('Fetched all categories')),
         catchError(this.handleError)
       );
   }

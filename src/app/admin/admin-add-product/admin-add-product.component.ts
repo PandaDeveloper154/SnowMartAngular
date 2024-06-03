@@ -11,11 +11,16 @@ import { product } from '../../data-type';
 export class AdminAddProductComponent implements OnInit {
   addProductForm!: FormGroup;
   addProductMessage: string | undefined;
+  categories: any[] = []
 
   constructor(private fb: FormBuilder, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.productService.getCategories().subscribe(categories=>{
+      this.categories = categories;
+
+    });
   }
 
   initForm(): void {

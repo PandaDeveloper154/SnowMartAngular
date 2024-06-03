@@ -99,7 +99,7 @@ export class AuthService {
   private handleAuthentication(response: AccountDto): void {
     if (response.Token) {
       localStorage.setItem('token', response.Token);
-      localStorage.setItem('role', response.Role || ''); // Ensure role is not null
+      localStorage.setItem('role', response.Role || ''); 
       this.isUserLoggedIn.next(true);
     }
   }

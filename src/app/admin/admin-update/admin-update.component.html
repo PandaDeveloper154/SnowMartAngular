@@ -8,8 +8,11 @@
     <input type="text" class="form-input" placeholder="Enter Product Price" formControlName="price" />
     <p class="invalid-input"><span *ngIf="updateForm.get('price')?.invalid && updateForm.get('price')?.touched">Please enter Price</span></p>
     
-    <input type="text" class="form-input" placeholder="Enter Product Category" formControlName="categoryId" />
-    <p class="invalid-input"><span *ngIf="updateForm.get('categoryId')?.invalid && updateForm.get('categoryId')?.touched">Please enter Category</span></p>
+    <select class="form-input" formControlName="categoryId">
+      <option value="">Select Category</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+    </select>
+    <p class="invalid-input"><span *ngIf="updateForm.get('categoryId')?.invalid && updateForm.get('categoryId')?.touched">Please select a Category</span></p>
     
     <input type="text" class="form-input" placeholder="Enter Product Color" formControlName="color" />
     <p class="invalid-input"><span *ngIf="updateForm.get('color')?.invalid && updateForm.get('color')?.touched">Please enter Color</span></p>

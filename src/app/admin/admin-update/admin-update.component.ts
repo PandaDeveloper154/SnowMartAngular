@@ -13,7 +13,7 @@ export class AdminUpdateComponent implements OnInit {
   productData: product | undefined;
   productMessage: string | undefined;
   updateForm: FormGroup;
-  // categories: string[] = ['Laptop', 'Phone', 'Tablet']; // Example array of categories
+  categories: any[] = []; 
 
   constructor(
     private router: ActivatedRoute,
@@ -31,6 +31,7 @@ export class AdminUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchCategories();
     let productIdString = this.router.snapshot.paramMap.get('id');
     if (productIdString) {
       let productId = parseInt(productIdString, 10); 
@@ -39,6 +40,12 @@ export class AdminUpdateComponent implements OnInit {
         this.updateForm.patchValue(data);
       });
     }
+  }
+
+  fetchCategories(): void {
+    this.productService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
   }
 
   submit(): void {
