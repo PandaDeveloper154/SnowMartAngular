@@ -21,11 +21,11 @@ export class AdminUpdateComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.updateForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', Validators.required, Validators.minLength(3), Validators.maxLength(100)],
       price: ['', Validators.required],
-      categoryId: ['', Validators.required], 
-      color: ['', Validators.required],
-      description: ['', Validators.required],
+      categoryId: ['', Validators.required],
+      color: ['', Validators.required, Validators.maxLength(30)],
+      description: ['', Validators.required, Validators.minLength(10), Validators.maxLength(500)],
       image: ['', Validators.required]
     });
   }
