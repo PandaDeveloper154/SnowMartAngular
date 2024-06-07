@@ -12,7 +12,7 @@ export class ProductService {
   private apiUrl = 'https://localhost:7040/api';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }).set('access-control-allow-origin', "https://localhost:7040/"),
+    headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }).set('access-control-allow-origin', "https://localhost:7040/"),
   };
 
   constructor(private http: HttpClient) { }
@@ -67,13 +67,22 @@ export class ProductService {
       );
   }
   
-  addProduct(product: product): Observable<product> {
-    return this.http.post<product>(`${this.apiUrl}/Product`, product, this.httpOptions)
+  addProduct(product: product, image: FormData): Observable<product> {
+    const formData = new FormData();
+    formData.append('image', image.get('image') as Blob);
+    formData.append('name', product.name);
+    formData.append('price', product.price.toString());
+    formData.append('categoryId', product.categoryId.toString());
+    formData.append('color', product.color);
+    formData.append('description', product.description);
+  
+    return this.http.post<product>(`${this.apiUrl}/Product`, formData, this.httpOptions)
       .pipe(
         tap((newProduct: product) => console.log(`Added product with ID=${newProduct.id}`)),
         catchError(this.handleError)
       );
   }
+  
 
   searchProducts(query: string): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/Product?categoryName=${query}`);

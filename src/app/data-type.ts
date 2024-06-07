@@ -22,7 +22,7 @@ export interface product {
   categoryId: string,
   categoryName: string,
   color: string,
-  image: string,
+  image: FormData,
   description: string,
   id: number,
   quantity: undefined | number,
@@ -34,7 +34,7 @@ export interface cart {
   categoryId: string,
   categoryName: string
   color: string,
-  image: string,
+  image: FormData,
   description: string,
   id: number | undefined,
   quantity: undefined | number,
