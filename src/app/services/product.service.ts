@@ -10,21 +10,18 @@ import { cart, category, order, product } from '../data-type';
 export class ProductService {
   cartData = new EventEmitter<any[]>();
   private apiUrl = 'https://localhost:7040/api';
-
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }).set('access-control-allow-origin', "https://localhost:7040/"),
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
   constructor(private http: HttpClient) { }
 
-  // Handle HTTP operation errors
   private handleError(error: any) {
-    console.error(error); // Log the error to the console
-    return throwError(error); // Rethrow the error to be caught by the caller
+    console.error(error);
+    return throwError(error);
   }
 
   // Product methods
-
   getAllProducts(): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/Product`)
       .pipe(
@@ -48,7 +45,8 @@ export class ProductService {
         tap(_ => console.log(`Fetched product with ID=${id}`)),
         catchError(this.handleError)
       );
-    }
+  }
+
   deleteProduct(id: number): Observable<any> {
     const url = `${this.apiUrl}/Product/${id}`;
     return this.http.delete(url, this.httpOptions)
@@ -66,30 +64,27 @@ export class ProductService {
         catchError(this.handleError)
       );
   }
-  
-  addProduct(product: product, image: FormData): Observable<product> {
-    const formData = new FormData();
-    formData.append('image', image.get('image') as Blob);
-    formData.append('name', product.name);
-    formData.append('price', product.price.toString());
-    formData.append('categoryId', product.categoryId.toString());
-    formData.append('color', product.color);
-    formData.append('description', product.description);
-  
-    return this.http.post<product>(`${this.apiUrl}/Product`, formData, this.httpOptions)
+
+  addProduct(product: FormData): Observable<product> {
+    return this.http.post<product>(`${this.apiUrl}/Product`, product)
       .pipe(
         tap((newProduct: product) => console.log(`Added product with ID=${newProduct.id}`)),
         catchError(this.handleError)
       );
   }
-  
+
+  uploadFile(formData: FormData): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/Product/upload`, formData)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   searchProducts(query: string): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/Product?categoryName=${query}`);
   }
 
   // Cart methods
-
   localAddToCart(data: product) {
     let cartData = localStorage.getItem('localCart');
     let items: product[] = cartData ? JSON.parse(cartData) : [];
@@ -110,16 +105,15 @@ export class ProductService {
         tap(_ => console.log('Added to cart')),
         catchError(error => {
           console.error('Error adding to cart:', error);
-          return throwError(error); 
+          return throwError(error);
         })
       );
   }
 
-
   getCartList(userId: number): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/CartItem?userId=${userId}`, { observe: 'response' })
       .pipe(
-        map((response) => response.body as product[]), 
+        map((response) => response.body as product[]),
         tap(_ => console.log('Fetched cart list')),
         catchError(this.handleError)
       );
@@ -129,11 +123,10 @@ export class ProductService {
     return this.http.get<cart[]>(`${this.apiUrl}/CartItem?userId=${userId}`).pipe(
       catchError((error) => {
         console.error('Error fetching current cart:', error);
-        throw error; 
+        throw error;
       })
     );
   }
-
 
   removeToCart(cartId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/CartItem/${cartId}`)
@@ -152,7 +145,6 @@ export class ProductService {
   }
 
   // Order methods
-
   orderNow(data: order): Observable<any> {
     return this.http.post(`${this.apiUrl}/Order`, data, this.httpOptions)
       .pipe(

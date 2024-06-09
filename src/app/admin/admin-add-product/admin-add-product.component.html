@@ -1,28 +1,39 @@
 <div class="add-product">
-    <h1>Add New Product</h1>
-    <p class="message-p">{{ addProductMessage }}</p>
-    <form [formGroup]="addProductForm" (ngSubmit)="submit()" class="common-form">
-        <input type="text" class="form-input" placeholder="Enter Product Name" formControlName="name" />
-        <p class="invalid-input"><span *ngIf="addProductForm.get('name')?.invalid && addProductForm.get('name')?.touched">Please enter Name</span></p>
-        
-        <input type="text" class="form-input" placeholder="Enter Product Price" formControlName="price" />
-        <p class="invalid-input"><span *ngIf="addProductForm.get('price')?.invalid && addProductForm.get('price')?.touched">Please enter Price</span></p>
-        
-        <select class="form-input" formControlName="categoryId">
-            <option value="">Select Category</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-          </select>
-          <p class="invalid-input"><span *ngIf="addProductForm.get('categoryId')?.invalid && addProductForm.get('categoryId')?.touched">Please select a Category</span></p>      
-        
-        <input type="text" class="form-input" placeholder="Enter Product Color" formControlName="color" />
-        <p class="invalid-input"><span *ngIf="addProductForm.get('color')?.invalid && addProductForm.get('color')?.touched">Please enter Color</span></p>
-        
-        <textarea type="text" class="form-input" placeholder="Enter Product Description" formControlName="description"></textarea>
-        <p class="invalid-input"><span *ngIf="addProductForm.get('description')?.invalid && addProductForm.get('description')?.touched">Please enter Description</span></p>
-        
-        <input type="file" (change)="onFileSelected($event)" class="form-input" />
-        <p class="invalid-input"><span *ngIf="addProductForm.get('image')?.invalid && addProductForm.get('image')?.touched">Please select an image</span></p>
-        
-        <button class="form-button" [disabled]="addProductForm.invalid">Add Product</button>
-    </form>
+        <h1>Add New Product</h1>
+        <p class="message-p">{{ addProductMessage }}</p>
+        <form [formGroup]="addProductForm" (ngSubmit)="submit()" class="common-form">
+                <input type="text" class="form-input" placeholder="Enter Product Name" formControlName="name" />
+                <p class="invalid-input"><span
+                                *ngIf="addProductForm.get('name')?.invalid && addProductForm.get('name')?.touched">Please
+                                enter Name</span></p>
+
+                <input type="text" class="form-input" placeholder="Enter Product Price" formControlName="price" />
+                <p class="invalid-input"><span
+                                *ngIf="addProductForm.get('price')?.invalid && addProductForm.get('price')?.touched">Please
+                                enter Price</span></p>
+
+                <select class="form-input" formControlName="categoryId">
+                        <option value="">Select Category</option>
+                        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                </select>
+                <p class="invalid-input"><span
+                                *ngIf="addProductForm.get('categoryId')?.invalid && addProductForm.get('categoryId')?.touched">Please
+                                select a Category</span></p>
+
+                <input type="text" class="form-input" placeholder="Enter Product Color" formControlName="color" />
+                <p class="invalid-input"><span
+                                *ngIf="addProductForm.get('color')?.invalid && addProductForm.get('color')?.touched">Please
+                                enter Color</span></p>
+
+                <textarea type="text" class="form-input" placeholder="Enter Product Description"
+                        formControlName="description"></textarea>
+                <p class="invalid-input"><span
+                                *ngIf="addProductForm.get('description')?.invalid && addProductForm.get('description')?.touched">Please
+                                enter Description</span></p>
+
+                <input type="file" accept="image/*" formControlName="thumbnail" (change)="onFileSelected($event)"
+                        placeholder="image.jpg">
+
+                <button class="form-button" [disabled]="addProductForm.invalid">Add Product</button>
+        </form>
 </div>
