@@ -56,14 +56,24 @@ export class ProductService {
       );
   }
 
-  updateProduct(product: product): Observable<any> {
-    const url = `${this.apiUrl}/Product/${product.id}`;
-    return this.http.put(url, product, this.httpOptions)
+  updateProduct(productId: number, product: FormData): Observable<product> {
+    const url = `${this.apiUrl}/Product/${productId}`;
+    return this.http.put<product>(url, product)
       .pipe(
-        tap(_ => console.log(`Updated product with ID=${product.id}`)),
+        tap((updatedProduct: product) => console.log(`Updated product with ID=${updatedProduct.id}`)),
         catchError(this.handleError)
       );
   }
+  
+  
+  // updateProduct(id: number, product: FormData): Observable<product> {
+  //   const url = `${this.apiUrl}/Product/${id}`;
+  //   return this.http.put<product>(url, product, this.httpOptions)
+  //     .pipe(
+  //       tap(_ => console.log(`Updated product with ID=${id}`)),
+  //       catchError(this.handleError)
+  //     );
+  // }
 
   addProduct(product: FormData): Observable<product> {
     return this.http.post<product>(`${this.apiUrl}/Product`, product)

@@ -31,6 +31,8 @@ export class AdminAddProductComponent implements OnInit {
       categoryId: new FormControl('', [Validators.required]),
       color: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]),
+      image: new FormControl(''),
+
     });
   }
 
@@ -39,8 +41,6 @@ export class AdminAddProductComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
 
-      // this.productService.uploadFile(formData).subscribe(
-      //   (response) => {
           const formValues = this.addProductForm.value;
           formData.append('name', formValues.name);
           formData.append('price', formValues.price);
@@ -59,10 +59,6 @@ export class AdminAddProductComponent implements OnInit {
             console.error("Failed to add product:", error);
           });
         }
-        // (error) => {
-        //   console.error("Failed to upload file:", error);
-      //   // }
-      // );
     
   }
 

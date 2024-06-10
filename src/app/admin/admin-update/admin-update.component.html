@@ -20,8 +20,7 @@
     <textarea type="text" class="form-input" placeholder="Enter Product Description" formControlName="description"></textarea>
     <p class="invalid-input"><span *ngIf="updateForm.get('description')?.invalid && updateForm.get('description')?.touched">Please enter Description</span></p>
     
-    <input type="text" class="form-input" placeholder="Enter Product Image URL" formControlName="image" />
-    <p class="invalid-input"><span *ngIf="updateForm.get('image')?.invalid && updateForm.get('image')?.touched">Please enter Url Image</span></p>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" placeholder="image.jpg">
     
     <button type="submit" class="form-button">Update Product</button>
   </form>
