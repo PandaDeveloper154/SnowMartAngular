@@ -39,8 +39,8 @@ export class AdminAddProductComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
 
-      this.productService.uploadFile(formData).subscribe(
-        (response) => {
+      // this.productService.uploadFile(formData).subscribe(
+      //   (response) => {
           const formValues = this.addProductForm.value;
           formData.append('name', formValues.name);
           formData.append('price', formValues.price);
@@ -58,12 +58,12 @@ export class AdminAddProductComponent implements OnInit {
           }, (error) => {
             console.error("Failed to add product:", error);
           });
-        },
-        (error) => {
-          console.error("Failed to upload file:", error);
         }
-      );
-    }
+        // (error) => {
+        //   console.error("Failed to upload file:", error);
+      //   // }
+      // );
+    
   }
 
   onFileSelected(event: Event): void {

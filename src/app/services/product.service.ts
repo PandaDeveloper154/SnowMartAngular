@@ -73,12 +73,12 @@ export class ProductService {
       );
   }
 
-  uploadFile(formData: FormData): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/Product/upload`, formData)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  // uploadFile(formData: FormData): Observable<string> {
+  //   return this.http.post<string>(`${this.apiUrl}/Product/upload`, formData)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
 
   searchProducts(query: string): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiUrl}/Product?categoryName=${query}`);
